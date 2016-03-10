@@ -46,20 +46,10 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         descriptionField.text = ""
         tagsField!.text = ""
         
-        performSegueWithIdentifier("GoToList", sender: self)
+        tabBarController?.selectedIndex = 2
         
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-        if segue.identifier == "GoToList" {
-            
-                let itemViewController = segue.destinationViewController as! ItemViewController
-            
-            itemViewController.itemsStore = itemsStore
-            
-        }
-    }
     
     // Opens up the camera to take a picture
     @IBAction func takePicture(sender: UIBarButtonItem) {
@@ -165,6 +155,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         view.addGestureRecognizer(tap)
         
     }
+    
     
     
     func dismissKeyboard() {
