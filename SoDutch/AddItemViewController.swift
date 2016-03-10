@@ -9,7 +9,7 @@
 import UIKit
 import CoreLocation
 
-class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate {
+class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate, UITextFieldDelegate {
     
     var currentLocation: CLLocation!
     var locationManager: CLLocationManager!
@@ -157,11 +157,16 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     
-    
     func dismissKeyboard() {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
     }
     
-
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        
+        return true
+        
+    }
+    
 }
