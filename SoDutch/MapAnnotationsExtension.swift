@@ -15,6 +15,7 @@ extension MapViewController {
         
         for item in itemsStore.allItems {
             let title = item.itemTitle
+            //var itemsKey = item.itemKey
             
             let annotation = MKPointAnnotation()
             
@@ -52,9 +53,13 @@ extension MapViewController {
         
         if control == annotationView.rightCalloutAccessoryView {
             
-       // tabBarController!.transitionFromViewController((tabBarController?.viewControllers![0])!, toViewController: (tabBarController?.viewControllers![2])!, duration: 0.2, options: .TransitionFlipFromRight, animations: nil, completion: )
+            tabBarController?.selectedIndex = 2
+            
+            
 
         }
     }
     
+
+
 }

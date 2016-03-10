@@ -36,7 +36,6 @@
                                         <barButtonItem key="rightBarButtonItem" title="Done" id="tBv-QE-ddq">
                                             <connections>
                                                 <action selector="finishItem:" destination="ErS-Cb-mZf" id="nLC-TC-hOK"/>
-                                                <segue destination="SyN-KT-vWk" kind="show" identifier="GoToList" id="RYO-GO-uGA"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -240,7 +239,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y1Z-5O-KeM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="877" y="848"/>
+            <point key="canvasLocation" x="831" y="848"/>
         </scene>
         <!--Map-->
         <scene sceneID="Wia-Li-2Kw">
@@ -325,7 +324,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6X8-0r-94k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="65" y="-477"/>
+            <point key="canvasLocation" x="65" y="-513"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="H2h-yb-dJI">
@@ -453,7 +452,7 @@
         <!--List-->
         <scene sceneID="Esf-N3-qTG">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="SyN-KT-vWk" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NavController" automaticallyAdjustsScrollViewInsets="NO" id="SyN-KT-vWk" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="List" image="List icon" id="HZ6-yX-7Ct"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ihl-gQ-S2F">
@@ -476,7 +475,4 @@
         <image name="Map icon" width="37" height="28"/>
         <image name="currentLocationButton" width="40" height="40"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="RYO-GO-uGA"/>
-    </inferredMetricsTieBreakers>
 </document>

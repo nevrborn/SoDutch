@@ -22,25 +22,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         locationManager = CLLocationManager()
         locationManager?.requestWhenInUseAuthorization()
-        
-        let imageStore = ImageStore()
 
         let tabController = window!.rootViewController as! UITabBarController
-        let navController = window!.rootViewController?.childViewControllers[2] as! UINavigationController
         
-        let itemsControllerMap = tabController.viewControllers![0] as! MapViewController
-        itemsControllerMap.itemsStore = itemsStore
-        itemsControllerMap.imageStore = imageStore
+        let viewControllerMap = tabController.viewControllers![0] as! MapViewController
+        viewControllerMap.itemsStore = itemsStore
         
-        let itemsControllerItem = tabController.viewControllers![1] as! AddItemViewController
-        itemsControllerItem.itemsStore = itemsStore
-        itemsControllerItem.imageStore = imageStore
+        let viewControllerItem = tabController.viewControllers![1] as! AddItemViewController
+        viewControllerItem.itemsStore = itemsStore
         
-        let itemsControllerList = navController.childViewControllers[0] as! ItemViewController
-        itemsControllerList.itemsStore = itemsStore
-        itemsControllerList.imageStore = imageStore
+        let viewControllerList = tabController.viewControllers![2].childViewControllers[0] as! ItemViewController
+        viewControllerList.itemsStore = itemsStore
+        
+        //let viewControllerDetail = tabController.viewControllers![2].childViewControllers[0].childViewControllers[0] as! DetailViewController
+       // viewControllerDetail.itemsStore = itemsStore
 
-        
         return true
     }
 

@@ -15,7 +15,7 @@ class DetailViewController: UIViewController{
     @IBOutlet var descriptionLabel: UILabel!
     
     var item: Item!
-    var imageStore: ImageStore!
+    var itemsStore: ItemsStore!
     
     func setLabels() {
         

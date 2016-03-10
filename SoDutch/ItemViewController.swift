@@ -10,6 +10,8 @@ import UIKit
 
 class ItemViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    var fromMap: Bool = false
+    
     var itemsStore = ItemsStore()
     var imageStore = ImageStore()
     
@@ -51,7 +53,6 @@ class ItemViewController: UIViewController, UITableViewDelegate, UITableViewData
                 let detailViewController = segue.destinationViewController as! DetailViewController
                 
                 detailViewController.item = item
-                detailViewController.imageStore = imageStore
 
             }
         }
@@ -60,10 +61,14 @@ class ItemViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
     }
     
-    
+    override func viewWillAppear(animated: Bool) {
+        
+        if fromMap == true {
+            prepareForSegue(, sender: <#T##AnyObject?#>)
+        }
+    }
     
     
 }

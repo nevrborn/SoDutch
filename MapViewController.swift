@@ -37,7 +37,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
     }
     
-    
+    // Segmented control for map
     func mapTypeChanged(segControl: UISegmentedControl) {
         switch segControl.selectedSegmentIndex {
         case 0:
@@ -74,6 +74,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         loadInitialData()
 
+    }
+    
+    // Will reload all annotation when the view appears again
+    override func viewWillAppear(animated: Bool) {
+        loadInitialData()
     }
     
 }
