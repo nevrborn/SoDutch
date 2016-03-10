@@ -26,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let imageStore = ImageStore()
 
         let tabController = window!.rootViewController as! UITabBarController
+        let navController = window!.rootViewController?.childViewControllers[2] as! UINavigationController
         
         let itemsControllerMap = tabController.viewControllers![0] as! MapViewController
         itemsControllerMap.itemsStore = itemsStore
@@ -35,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         itemsControllerItem.itemsStore = itemsStore
         itemsControllerItem.imageStore = imageStore
         
-        let itemsControllerList = tabController.viewControllers![2] as! ItemViewController
+        let itemsControllerList = navController.childViewControllers[0] as! ItemViewController
         itemsControllerList.itemsStore = itemsStore
         itemsControllerList.imageStore = imageStore
 

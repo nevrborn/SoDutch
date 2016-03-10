@@ -34,6 +34,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         newItem = itemsStore.addItem(titleField.text!, newDescription: descriptionField.text!, newLocation: currentLocation)
         
+        // Set images directly to the item, NOT to ImageStore
         newItem.originalImage = UIImage(data: originalImageData)
         newItem.editedImage = UIImage(data: editedImageData)
         
@@ -45,9 +46,19 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         descriptionField.text = ""
         tagsField!.text = ""
         
-        let nextViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ItemViewController") as! ItemViewController
-        self.navigationController?.pushViewController(nextViewController, animated: true)
+        performSegueWithIdentifier("GoToList", sender: self)
         
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if segue.identifier == "GoToList" {
+            
+                let itemViewController = segue.destinationViewController as! ItemViewController
+            
+            itemViewController.itemsStore = itemsStore
+            
+        }
     }
     
     // Opens up the camera to take a picture
@@ -55,11 +66,29 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         let imagePicker = UIImagePickerController()
         
-        if UIImagePickerController.isSourceTypeAvailable(.Camera) {
+        // Asks the user to either Take a Photo or to choose one from the Photo Library
+        let alertController = UIAlertController(title: "Add Photo", message: "Choose from Camera or from PhotoLibrary?", preferredStyle: .Alert)
+        
+        let cameraAction = UIAlertAction(title: "Take Photo", style: .Default, handler: {(action)-> Void in
+            imagePicker.delegate = self
             imagePicker.sourceType = .Camera
-        } else {
+            
+            self.presentViewController(imagePicker, animated: true, completion: nil)
+            
+        })
+        
+        let libraryAction = UIAlertAction(title: "Get Photo From Library", style: .Default, handler: {(action)-> Void in
+            imagePicker.delegate = self
             imagePicker.sourceType = .PhotoLibrary
-        }
+            
+            self.presentViewController(imagePicker, animated: true, completion: nil)
+            
+        })
+        
+        alertController.addAction(cameraAction)
+        alertController.addAction(libraryAction)
+        
+        presentViewController(alertController, animated: true, completion: nil)
         
         imagePicker.delegate = self
         
@@ -71,10 +100,12 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     
      // Take a photo and saves both the original and edited photo
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        
         // Get picked image from info dictionary
         let originalImageInit = info[UIImagePickerControllerOriginalImage] as! UIImage
         let editedImageInit = info[UIImagePickerControllerEditedImage] as! UIImage
         
+        // Convert image to PNG
         originalImageData = UIImagePNGRepresentation(originalImageInit)
         editedImageData = UIImagePNGRepresentation(editedImageInit)
         
@@ -129,8 +160,6 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         currentLocation = locationManager.location
         
         addresseLabel.text = "Addresse will come automatically with picture"
-        
-        newItem = itemsStore.addItem("No Title", newDescription: "No Description", newLocation: currentLocation)
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         view.addGestureRecognizer(tap)
