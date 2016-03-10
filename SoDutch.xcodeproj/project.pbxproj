@@ -17,6 +17,7 @@
 		71035AD61C8D9234005F70D7 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71035AD51C8D9234005F70D7 /* ItemCell.swift */; };
 		71035ADE1C8DC883005F70D7 /* AddItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71035ADD1C8DC883005F70D7 /* AddItemViewController.swift */; };
 		713995EF1C902341004DAB47 /* MapAnnotationsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713995EE1C902341004DAB47 /* MapAnnotationsExtension.swift */; };
+		713995F11C91653B004DAB47 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713995F01C91653B004DAB47 /* DetailViewController.swift */; };
 		71794CE81C8F835A006CE8F5 /* ItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71794CE71C8F835A006CE8F5 /* ItemViewController.swift */; };
 		71CD549B1C8EC5A500B09512 /* ImageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CD549A1C8EC5A500B09512 /* ImageStore.swift */; };
 /* End PBXBuildFile section */
@@ -34,6 +35,7 @@
 		71035AD51C8D9234005F70D7 /* ItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 		71035ADD1C8DC883005F70D7 /* AddItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddItemViewController.swift; sourceTree = "<group>"; };
 		713995EE1C902341004DAB47 /* MapAnnotationsExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapAnnotationsExtension.swift; sourceTree = "<group>"; };
+		713995F01C91653B004DAB47 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		71794CE71C8F835A006CE8F5 /* ItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemViewController.swift; sourceTree = "<group>"; };
 		71CD549A1C8EC5A500B09512 /* ImageStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -73,6 +75,7 @@
 				71035ADD1C8DC883005F70D7 /* AddItemViewController.swift */,
 				71035A991C8C3AE5005F70D7 /* AppDelegate.swift */,
 				71035A9D1C8C3AE5005F70D7 /* Main.storyboard */,
+				713995F01C91653B004DAB47 /* DetailViewController.swift */,
 				71CD549A1C8EC5A500B09512 /* ImageStore.swift */,
 				71794CE71C8F835A006CE8F5 /* ItemViewController.swift */,
 				71035ACD1C8D7779005F70D7 /* MapViewController.swift */,
@@ -172,6 +175,7 @@
 				71035ACE1C8D7779005F70D7 /* MapViewController.swift in Sources */,
 				713995EF1C902341004DAB47 /* MapAnnotationsExtension.swift in Sources */,
 				71035ADE1C8DC883005F70D7 /* AddItemViewController.swift in Sources */,
+				713995F11C91653B004DAB47 /* DetailViewController.swift in Sources */,
 				71035A9A1C8C3AE5005F70D7 /* AppDelegate.swift in Sources */,
 				71035AD41C8D9203005F70D7 /* ItemsStore.swift in Sources */,
 			);

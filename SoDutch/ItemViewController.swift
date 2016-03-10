@@ -29,18 +29,33 @@ class ItemViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         let itemTitle = itemsStore.allItems[indexPath.row].itemTitle
         let itemDescription = itemsStore.allItems[indexPath.row].itemDescription
-        //let itemImage = itemsStore.allItems[indexPath.row].editedImage!
+        let itemImage = itemsStore.allItems[indexPath.row].editedImage
         
         // Configure Cell
         cell.itemTitle.text = itemTitle
         cell.itemDescription.text = itemDescription
-        //cell.itemImage.image = itemImage
+        cell.itemImage.image = itemImage
         
         
         return cell
         
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if segue.identifier == "ShowItemDetail" {
+            
+            if let row = tableView.indexPathForSelectedRow?.row {
+                
+                let item = itemsStore.allItems[row]
+                let detailViewController = segue.destinationViewController as! DetailViewController
+                
+                detailViewController.item = item
+                detailViewController.imageStore = imageStore
+
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

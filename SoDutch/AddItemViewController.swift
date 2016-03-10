@@ -17,6 +17,9 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     var itemsStore: ItemsStore!
     var imageStore: ImageStore!
     
+    var originalImageData: NSData!
+    var editedImageData: NSData!
+    
     var newItem: Item!
     
     @IBOutlet var imageView: UIImageView!
@@ -31,13 +34,16 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         newItem = itemsStore.addItem(titleField.text!, newDescription: descriptionField.text!, newLocation: currentLocation)
         
+        newItem.originalImage = UIImage(data: originalImageData)
+        newItem.editedImage = UIImage(data: editedImageData)
+        
+        itemsStore.saveChanges()
+        
         imageView.image = nil
         titleField.text = ""
         addresseLabel.text = ""
         descriptionField.text = ""
         tagsField!.text = ""
-        
-        itemsStore.saveChanges()
         
         let nextViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ItemViewController") as! ItemViewController
         self.navigationController?.pushViewController(nextViewController, animated: true)
@@ -66,15 +72,14 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
      // Take a photo and saves both the original and edited photo
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         // Get picked image from info dictionary
-        let originalImage = info[UIImagePickerControllerOriginalImage] as! UIImage
-        let editedImage = info[UIImagePickerControllerEditedImage] as! UIImage
+        let originalImageInit = info[UIImagePickerControllerOriginalImage] as! UIImage
+        let editedImageInit = info[UIImagePickerControllerEditedImage] as! UIImage
         
-        // Store the images in the ImageStore for the item´s key
-        imageStore.setImage(originalImage, forKey: newItem.itemKey, original: true)
-        imageStore.setImage(editedImage, forKey: newItem.itemKey, original: false)
+        originalImageData = UIImagePNGRepresentation(originalImageInit)
+        editedImageData = UIImagePNGRepresentation(editedImageInit)
         
         // Display the edited (small) image on screen
-        imageView.image = editedImage
+        imageView.image = editedImageInit
         
         // Get adresseLabel as current location
         getLocationAddress(currentLocation)
@@ -116,7 +121,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     override func viewDidLoad() {
-
+        
         currentLocation = CLLocation!()
         locationManager = CLLocationManager()
         locationManager.startUpdatingLocation()
@@ -138,15 +143,5 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         view.endEditing(true)
     }
     
-    
-    let dateFormatter: NSDateFormatter = {
-        let formatter = NSDateFormatter()
-        formatter.dateStyle = .MediumStyle
-        formatter.timeStyle = .NoStyle
-        return formatter
-    }()
-    
 
-    
-    
 }

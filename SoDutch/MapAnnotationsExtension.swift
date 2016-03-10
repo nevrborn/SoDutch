@@ -10,13 +10,15 @@ import MapKit
 
 extension MapViewController {
     
+    // Creates a pin for all items in allItems[]
     func loadInitialData() {
         
         for item in itemsStore.allItems {
             let title = item.itemTitle
-            let coordinate = CLLocationCoordinate2DMake(item.latitude, item.longitude)
             
             let annotation = MKPointAnnotation()
+            
+            let coordinate = CLLocationCoordinate2DMake(item.latitude, item.longitude)
             
             annotation.coordinate = coordinate
             annotation.title = title
@@ -26,27 +28,33 @@ extension MapViewController {
         }
     }
     
+    // Edits the pin configuration
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         
-        if !(annotation is MKPointAnnotation) {
-            return nil
-        }
+        let reuseIdentifier = "pin"
+        var pin = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseIdentifier)
         
-        let identifier = "pin"
-        var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier)
-        
-        if annotationView == nil {
-            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-            
+        if pin == nil {
+            pin = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
+            pin!.calloutOffset = CGPoint(x: -5, y: 5)
+            pin!.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure) as UIView
+            pin!.canShowCallout = true
         } else {
-            annotationView!.annotation = annotation
-            annotationView?.calloutOffset = CGPoint(x: -5, y: 5)
-            annotationView?.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure) as UIView
-            annotationView!.canShowCallout = true
+            pin!.annotation = annotation
+
         }
         
-        return annotationView
+        return pin
     }
     
+    // When info button is tapped on pin, go to ItemViewController
+    func mapView(mapView: MKMapView, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        
+        if control == annotationView.rightCalloutAccessoryView {
+            
+       // tabBarController!.transitionFromViewController((tabBarController?.viewControllers![0])!, toViewController: (tabBarController?.viewControllers![2])!, duration: 0.2, options: .TransitionFlipFromRight, animations: nil, completion: )
+
+        }
+    }
     
 }

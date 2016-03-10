@@ -53,6 +53,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     // Segmented controll to display ALL or RECENT photos
     @IBAction func itemsViewSegment(sender: UISegmentedControl) {
+        
     }
     
     
@@ -60,6 +61,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     func mapView(mapView: MKMapView, didUpdateUserLocation
         userLocation: MKUserLocation) {
             mapView.centerCoordinate = userLocation.location!.coordinate
+            mapView.setRegion(MKCoordinateRegion(center: mapView.userLocation.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03)), animated: true)
     }
     
     override func viewDidLoad() {
