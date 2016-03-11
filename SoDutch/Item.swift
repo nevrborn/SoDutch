@@ -61,8 +61,6 @@ class Item: NSObject, NSCoding, MKAnnotation {
         return mapItem
     }
     
-
-
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(itemTitle, forKey: "itemTitle")
         aCoder.encodeObject(itemDescription, forKey: "itemDescription")

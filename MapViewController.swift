@@ -11,10 +11,18 @@ import MapKit
 
 class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
+    
+    @IBOutlet var annotationDetailView: UIView!
+    @IBOutlet var imageView: UIImageView!
+    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var descriptionLabel: UILabel!
+    @IBOutlet var updateLocationButton: UIButton!
+    
     var location: CLLocation!
     var locationManager: CLLocationManager!
     var window: UIWindow!
     var annotations = [MKPointAnnotation]()
+    var firstLoadOfMap = true
     
     var itemsStore: ItemsStore!
     var imageStore: ImageStore!
@@ -25,7 +33,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     // If pressing "ARROW" then the location will be zoomed in to users location
     @IBAction func goToCurrentLocation(sender: UIButton) {
         self.mapView.showsUserLocation = true
-        mapView.setRegion(MKCoordinateRegion(center: mapView.userLocation.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03)), animated: true)
+        mapView.setRegion(MKCoordinateRegion(center: mapView.userLocation.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)), animated: true)
     }
     
     
@@ -60,8 +68,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     // Function to update the user location
     func mapView(mapView: MKMapView, didUpdateUserLocation
         userLocation: MKUserLocation) {
-            mapView.centerCoordinate = userLocation.location!.coordinate
-            mapView.setRegion(MKCoordinateRegion(center: mapView.userLocation.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03)), animated: true)
+            
+            if firstLoadOfMap == true {
+                mapView.setRegion(MKCoordinateRegion(center: mapView.userLocation.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)), animated: true)
+                firstLoadOfMap = false
+            }
+
     }
     
     override func viewDidLoad() {
@@ -71,9 +83,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         mapView.delegate = self
         // Set that it should show the user location
         mapView.showsUserLocation = true
-        
-        loadInitialData()
 
+        loadInitialData()
+        
+        annotationDetailView.hidden = true
+        
     }
     
     // Will reload all annotation when the view appears again
