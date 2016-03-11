@@ -15,14 +15,14 @@ extension MapViewController {
         
         for item in itemsStore.allItems {
             let title = item.itemTitle
-            //var itemsKey = item.itemKey
+            let itemsKey = item.itemKey
             
             let annotation = MKPointAnnotation()
             
             let coordinate = CLLocationCoordinate2DMake(item.latitude, item.longitude)
-            
             annotation.coordinate = coordinate
             annotation.title = title
+            annotation.subtitle = itemsKey
             
             annotations.append(annotation)
             mapView.addAnnotations(annotations)
@@ -37,12 +37,10 @@ extension MapViewController {
         
         if pin == nil {
             pin = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
-            pin!.calloutOffset = CGPoint(x: -5, y: 5)
-            pin!.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure) as UIView
-            pin!.canShowCallout = true
+            
         } else {
             pin!.annotation = annotation
-
+            
         }
         
         return pin
@@ -55,11 +53,44 @@ extension MapViewController {
             
             tabBarController?.selectedIndex = 2
             
-            
-
         }
     }
     
-
-
+    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
+        
+        var i = 0
+        var itemKeyString: String = ""
+        let itemKeyStringWrapped = view.annotation!.subtitle
+        
+        if view.annotation?.coordinate.latitude != mapView.userLocation.coordinate.latitude && view.annotation?.coordinate.longitude != mapView.userLocation.coordinate.longitude {
+            
+            if itemKeyStringWrapped != nil {
+                itemKeyString = (itemKeyStringWrapped!?.uppercaseString)!
+            }
+            
+            
+            while i < itemsStore.allItems.count {
+                
+                if itemKeyString == itemsStore.allItems[i].itemKey {
+                    annotationDetailView.hidden = false
+                    imageView.image = itemsStore.allItems[i].editedImage
+                    titleLabel.text = itemsStore.allItems[i].itemTitle
+                    descriptionLabel.text = itemsStore.allItems[i].itemDescription
+                    
+                    mapView.setCenterCoordinate((view.annotation?.coordinate)!, animated: true)
+                    
+                    i = itemsStore.allItems.count
+                } else {
+                    i++
+                }
+            }
+        }
+    }
+    
+    func mapView(mapView: MKMapView, didDeselectAnnotationView view: MKAnnotationView) {
+        annotationDetailView.hidden = true
+    }
+    
+    
+    
 }
