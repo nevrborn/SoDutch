@@ -30,6 +30,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet var tagsField: UITextField?
     @IBOutlet var titleTextView: UIView!
     
+    
     // Actions that happen when user presses DONE
     @IBAction func finishItem(sender: AnyObject) {
         
@@ -55,7 +56,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     // Opens up the camera to take a picture
     @IBAction func takePicture(sender: UIBarButtonItem) {
-        
+
         let imagePicker = UIImagePickerController()
         
         // Asks the user to either Take a Photo or to choose one from the Photo Library
@@ -64,6 +65,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         let cameraAction = UIAlertAction(title: "Take Photo", style: .Default, handler: {(action)-> Void in
             imagePicker.delegate = self
             imagePicker.sourceType = .Camera
+        
             
             self.presentViewController(imagePicker, animated: true, completion: nil)
             
@@ -77,9 +79,11 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
             
         })
         
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Destructive, handler: nil)
+    
         alertController.addAction(cameraAction)
         alertController.addAction(libraryAction)
-        
+        alertController.addAction(cancelAction)
         presentViewController(alertController, animated: true, completion: nil)
         
         imagePicker.delegate = self
@@ -145,6 +149,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     override func viewDidLoad() {
         
+        
         currentLocation = CLLocation!()
         locationManager = CLLocationManager()
         locationManager.startUpdatingLocation()
@@ -155,6 +160,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         view.addGestureRecognizer(tap)
+     
         
     }
     
