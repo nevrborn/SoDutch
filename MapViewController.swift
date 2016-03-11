@@ -93,6 +93,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     // Will reload all annotation when the view appears again
     override func viewWillAppear(animated: Bool) {
         loadInitialData()
+        
+        annotationDetailView.hidden = true
     }
     
 }

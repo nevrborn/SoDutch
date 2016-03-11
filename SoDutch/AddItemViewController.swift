@@ -169,6 +169,11 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         currentLocation = locationManager.location
         
+        imageView.layer.shadowColor = UIColor.blackColor().CGColor
+        imageView.layer.shadowOpacity = 1
+        imageView.layer.shadowOffset = CGSizeMake(4, 5)
+        imageView.layer.shadowRadius = 10
+        
         addresseLabel.text = "Addresse will come automatically with picture"
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")

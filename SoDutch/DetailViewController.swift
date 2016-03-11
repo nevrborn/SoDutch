@@ -16,6 +16,7 @@ class DetailViewController: UIViewController{
     @IBOutlet var likesLabel: UILabel!
     @IBOutlet var likeButton: UIButton!
     @IBOutlet var adressLabel: UILabel!
+    @IBOutlet var titleView: UIView!
     
     var hasLikeditem = false
     var item: Item!
@@ -32,6 +33,11 @@ class DetailViewController: UIViewController{
         adressLabel.text = item.addressString
         
         imageView.image = itemImage
+        
+        imageView.layer.shadowColor = UIColor.blackColor().CGColor
+        imageView.layer.shadowOpacity = 1
+        imageView.layer.shadowOffset = CGSizeMake(4, 5)
+        imageView.layer.shadowRadius = 10
     }
     
     @IBAction func likeItem(sender: UIButton) {
