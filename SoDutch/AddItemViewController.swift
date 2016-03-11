@@ -37,7 +37,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         if (imageView.image == nil || titleField.text == "" || descriptionField.text == "") {
             
             
-            let alertController = UIAlertController(title: "Fill all the Required field", message: "ill all the Required field", preferredStyle: .Alert)
+            let alertController = UIAlertController(title: "Missing information", message: "Photo, Title and Description is required to save", preferredStyle: .Alert)
             
             let CompleteAction = UIAlertAction(title: "OK", style: .Destructive, handler: nil)
             
@@ -48,6 +48,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         } else {
             
             newItem = itemsStore.addItem(titleField.text!, newDescription: descriptionField.text!, newLocation: currentLocation)
+            
             // Set images directly to the item, NOT to ImageStore
             newItem.originalImage = UIImage(data: originalImageData)
             newItem.editedImage = UIImage(data: editedImageData)
