@@ -59,7 +59,18 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
             titleField.text = ""
             addresseLabel.text = ""
             descriptionField.text = ""
-            tagsField!.text = ""
+            
+            // This string contains some empty sections.
+            let newTags = tagsField!.text?.componentsSeparatedByString(" ")
+            
+            // Use filter to eliminate empty strings.
+            let nonempty = newTags!.filter { (x) -> Bool in
+                !x.isEmpty
+            }
+            
+            for item in newTags! {
+                newItem.tags.append(item)
+            }
             
             tabBarController?.selectedIndex = 2
         }
