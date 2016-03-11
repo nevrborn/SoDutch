@@ -9,13 +9,13 @@
 import UIKit
 import CoreLocation
 
-class ItemsStore {
+class ItemsStore: NSObject, UIPageViewControllerDataSource {
     
     // Create an array where all the items are stored in
     var allItems = [Item]()
     
     // Function that will retrieve all stored items in allItems[]
-    init() {
+    override init() {
         if let archivedItems = NSKeyedUnarchiver.unarchiveObjectWithFile(itemArchiveURL.path!) as? [Item] {
             allItems += archivedItems
         }
@@ -42,6 +42,51 @@ class ItemsStore {
     func saveChanges() -> Bool {
         print("Saving items to: \(itemArchiveURL.path!)")
         return NSKeyedArchiver.archiveRootObject(allItems, toFile: itemArchiveURL.path!)
+    }
+    
+    func viewControllerAtIndex(index: Int, storyboard: UIStoryboard) -> PageDataViewController? {
+        
+        // Return the data view controller for the given index.
+        if (allItems.count == 0) || (index >= allItems.count) {
+            return nil
+        }
+        
+        // Create a new view controller and pass suitable data.
+        let pageDataViewController = storyboard.instantiateViewControllerWithIdentifier("PageDataViewController") as! PageDataViewController
+        pageDataViewController.imageObject = allItems[index].originalImage
+        pageDataViewController.infoObject = allItems[index].itemTitle
+        pageDataViewController.descriptionObject = allItems[index].itemDescription
+        
+        return pageDataViewController
+    }
+    
+    func indexOfViewController(viewController: PageDataViewController) -> Int {
+        // Return the index of the given data view controller.
+        //return allItems.indexOf(viewController.imageObject!) ?? NSNotFound
+        return 1
+    }
+    
+    func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
+        var index = self.indexOfViewController(viewController as! PageDataViewController)
+        if (index == 0) || (index == NSNotFound) {
+            return nil
+        }
+        
+        index--
+        return self.viewControllerAtIndex(index, storyboard: viewController.storyboard!)
+    }
+    
+    func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
+        var index = self.indexOfViewController(viewController as! PageDataViewController)
+        if index == NSNotFound {
+            return nil
+        }
+        
+        index++
+        if index == allItems.count {
+            return nil
+        }
+        return self.viewControllerAtIndex(index, storyboard: viewController.storyboard!)
     }
     
     

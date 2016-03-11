@@ -19,6 +19,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     var originalImageData: NSData!
     var editedImageData: NSData!
+    var addressString: String?
     
     var newItem: Item!
     
@@ -37,6 +38,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         // Set images directly to the item, NOT to ImageStore
         newItem.originalImage = UIImage(data: originalImageData)
         newItem.editedImage = UIImage(data: editedImageData)
+        newItem.addressString = addresseLabel.text
         
         itemsStore.saveChanges()
         

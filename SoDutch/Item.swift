@@ -21,6 +21,7 @@ class Item: NSObject, NSCoding, MKAnnotation {
     var editedImage: UIImage?
     var longitude: Double
     var latitude: Double
+    var addressString: String?
     var tags: [String]
     var comments: [String]
     var likes: Int
@@ -68,6 +69,7 @@ class Item: NSObject, NSCoding, MKAnnotation {
         aCoder.encodeObject(dateCreated, forKey: "dateCreated")
         aCoder.encodeDouble(latitude, forKey: "latitude")
         aCoder.encodeDouble(longitude, forKey: "longitude")
+        aCoder.encodeObject(addressString, forKey: "addressString")
         aCoder.encodeObject(originalImage, forKey: "originalImage")
         aCoder.encodeObject(editedImage, forKey: "editedImage")
         aCoder.encodeObject(tags, forKey: "tags")
@@ -82,6 +84,7 @@ class Item: NSObject, NSCoding, MKAnnotation {
         dateCreated = aDecoder.decodeObjectForKey("dateCreated") as! NSDate
         latitude = aDecoder.decodeDoubleForKey("latitude")
         longitude = aDecoder.decodeDoubleForKey("longitude")
+        addressString = aDecoder.decodeObjectForKey("addressString") as? String
         originalImage = aDecoder.decodeObjectForKey("originalImage") as? UIImage
         editedImage = aDecoder.decodeObjectForKey("editedImage") as? UIImage
         tags = aDecoder.decodeObjectForKey("tags") as! [String]
