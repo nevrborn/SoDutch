@@ -30,28 +30,40 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet var tagsField: UITextField?
     @IBOutlet var titleTextView: UIView!
     
-    // Actions that happen when user presses DONE
+    
+    // Actions that happen when user presses DONE button
     @IBAction func finishItem(sender: AnyObject) {
         
-        newItem = itemsStore.addItem(titleField.text!, newDescription: descriptionField.text!, newLocation: currentLocation)
-        
-        // Set images directly to the item, NOT to ImageStore
-        newItem.originalImage = UIImage(data: originalImageData)
-        newItem.editedImage = UIImage(data: editedImageData)
-        newItem.addressString = addresseLabel.text
-        
-        itemsStore.saveChanges()
-        
-        imageView.image = nil
-        titleField.text = ""
-        addresseLabel.text = ""
-        descriptionField.text = ""
-        tagsField!.text = ""
-        
-        tabBarController?.selectedIndex = 2
-        
+        if (imageView.image == nil || titleField.text == "" || descriptionField.text == "") {
+            
+            
+            let alertController = UIAlertController(title: "Fill all the Required field", message: "ill all the Required field", preferredStyle: .Alert)
+            
+            let CompleteAction = UIAlertAction(title: "OK", style: .Destructive, handler: nil)
+            
+            alertController.addAction(CompleteAction)
+            
+            presentViewController(alertController, animated: true, completion: nil)
+            
+        } else {
+            
+            newItem = itemsStore.addItem(titleField.text!, newDescription: descriptionField.text!, newLocation: currentLocation)
+            // Set images directly to the item, NOT to ImageStore
+            newItem.originalImage = UIImage(data: originalImageData)
+            newItem.editedImage = UIImage(data: editedImageData)
+            newItem.addressString = addresseLabel.text
+            
+            itemsStore.saveChanges()
+            
+            imageView.image = nil
+            titleField.text = ""
+            addresseLabel.text = ""
+            descriptionField.text = ""
+            tagsField!.text = ""
+            
+            tabBarController?.selectedIndex = 2
+        }
     }
-    
     
     // Opens up the camera to take a picture
     @IBAction func takePicture(sender: UIBarButtonItem) {
@@ -65,6 +77,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
             imagePicker.delegate = self
             imagePicker.sourceType = .Camera
             
+            
             self.presentViewController(imagePicker, animated: true, completion: nil)
             
         })
@@ -77,8 +90,11 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
             
         })
         
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Destructive, handler: nil)
+        
         alertController.addAction(cameraAction)
         alertController.addAction(libraryAction)
+        alertController.addAction(cancelAction)
         
         presentViewController(alertController, animated: true, completion: nil)
         
@@ -90,7 +106,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         presentViewController(imagePicker, animated: true, completion: nil)
     }
     
-     // Take a photo and saves both the original and edited photo
+    // Take a photo and saves both the original and edited photo
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         
         // Get picked image from info dictionary
@@ -134,16 +150,17 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
                 if placemark.locality != nil {
                     addresseString = addresseString + placemark.locality!
                 }
-
+                
                 // Set adresseLabel as current location
                 self.addresseLabel.text = addresseString
             }
         })
-
+        
         return addresseString
     }
     
     override func viewDidLoad() {
+        
         
         currentLocation = CLLocation!()
         locationManager = CLLocationManager()
@@ -155,6 +172,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         view.addGestureRecognizer(tap)
+        
         
     }
     
