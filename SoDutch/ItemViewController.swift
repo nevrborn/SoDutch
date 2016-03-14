@@ -53,9 +53,10 @@ class ItemViewController: UIViewController, UITableViewDelegate, UITableViewData
                 let detailViewController = segue.destinationViewController as! DetailViewController
                 
                 detailViewController.item = item
-
+                
             }
         }
+        
     }
     
     override func viewDidLoad() {
@@ -65,7 +66,7 @@ class ItemViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewWillAppear(animated: Bool) {
         
-
+        
     }
     
     

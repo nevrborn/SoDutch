@@ -14,9 +14,32 @@ class PageDataViewController: UIViewController {
     var infoObject: String?
     var descriptionObject: String?
     
+    var itemsStore: ItemsStore!
+    
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var infoLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
+    
+    @IBAction func listViewSegment(sender: UISegmentedControl) {
+        
+        let segmentedControl = sender
+        
+        if segmentedControl.selectedSegmentIndex == 0 {
+            performSegueWithIdentifier("GoToListView", sender: self)
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if segue.identifier == "GoToListView" {
+            
+            let itemViewController = segue.destinationViewController as! ItemViewController
+            
+            itemViewController.itemsStore = itemsStore
+            
+        }
+    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()

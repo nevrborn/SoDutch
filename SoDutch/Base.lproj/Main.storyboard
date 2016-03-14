@@ -174,15 +174,15 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="101" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xXn-MD-oIA">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <segmentedControl key="tableFooterView" hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="Vqh-Q4-bKx">
-                                    <rect key="frame" x="0.0" y="192" width="600" height="29"/>
+                                <segmentedControl key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="Vqh-Q4-bKx">
+                                    <rect key="frame" x="0.0" y="192" width="600" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <segments>
-                                        <segment title="First"/>
-                                        <segment title="Second"/>
+                                        <segment title="List View"/>
+                                        <segment title="Swipe View"/>
                                     </segments>
                                     <connections>
-                                        <segue destination="xyO-Oj-zpu" kind="show" id="aKy-X3-Qtb"/>
+                                        <action selector="listViewSegment:" destination="Ywu-cB-07l" eventType="valueChanged" id="hTL-ae-1nM"/>
                                     </connections>
                                 </segmentedControl>
                                 <prototypes>
@@ -452,7 +452,7 @@
                 <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="hD6-jR-ZqV" customClass="PageViewController" customModule="SoDutch" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ko6-KT-z3U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2267" y="162"/>
+            <point key="canvasLocation" x="1579" y="1580"/>
         </scene>
         <!--Page Data View Controller-->
         <scene sceneID="nNw-5n-cxX">
@@ -487,28 +487,44 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="JSb-V5-4zl">
+                                <rect key="frame" x="183" y="72" width="234" height="30"/>
+                                <segments>
+                                    <segment title="List View"/>
+                                    <segment title="Swipe View"/>
+                                </segments>
+                                <connections>
+                                    <action selector="listViewSegment:" destination="xyO-Oj-zpu" eventType="valueChanged" id="G0E-xY-Vs8"/>
+                                    <action selector="listViewSegment:" destination="Ywu-cB-07l" eventType="valueChanged" id="LTW-w7-Cs6"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="tbe-M7-ALO" secondAttribute="trailing" constant="-20" id="8Gk-zK-sju"/>
                             <constraint firstItem="JuF-f2-dqk" firstAttribute="top" secondItem="aK7-Uy-Zoz" secondAttribute="bottom" constant="93" id="KlZ-xC-uWI"/>
                             <constraint firstItem="JuF-f2-dqk" firstAttribute="top" secondItem="tbe-M7-ALO" secondAttribute="bottom" constant="62" id="McH-a9-5q4"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="JSb-V5-4zl" secondAttribute="trailing" constant="163" id="NQA-7I-eC6"/>
                             <constraint firstItem="aK7-Uy-Zoz" firstAttribute="leading" secondItem="SgY-bh-beS" secondAttribute="leadingMargin" constant="-20" id="NaT-zY-j4c"/>
                             <constraint firstItem="aK7-Uy-Zoz" firstAttribute="top" secondItem="ybd-x5-hei" secondAttribute="bottom" constant="359" id="QzK-rK-0cb"/>
                             <constraint firstItem="tbe-M7-ALO" firstAttribute="top" secondItem="ybd-x5-hei" secondAttribute="bottom" constant="29" id="RHc-80-yrP"/>
                             <constraint firstAttribute="trailingMargin" secondItem="aK7-Uy-Zoz" secondAttribute="trailing" constant="-20" id="RV6-gO-4PI"/>
+                            <constraint firstItem="JSb-V5-4zl" firstAttribute="leading" secondItem="SgY-bh-beS" secondAttribute="leadingMargin" constant="163" id="TME-sM-Xpq"/>
                             <constraint firstItem="tbe-M7-ALO" firstAttribute="leading" secondItem="SgY-bh-beS" secondAttribute="leadingMargin" constant="-20" id="TkI-n3-2bI"/>
+                            <constraint firstItem="JSb-V5-4zl" firstAttribute="top" secondItem="ybd-x5-hei" secondAttribute="bottom" constant="8" id="hAA-cg-K5j"/>
+                            <constraint firstItem="JSb-V5-4zl" firstAttribute="centerX" secondItem="SgY-bh-beS" secondAttribute="centerX" id="hrd-y6-FgG"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="descriptionLabel" destination="d9D-1q-Yun" id="G5M-ya-gR4"/>
                         <outlet property="imageView" destination="tbe-M7-ALO" id="nEl-JD-1cQ"/>
                         <outlet property="infoLabel" destination="LVn-Fs-sFI" id="hwB-nI-a9G"/>
+                        <outlet property="listViewSegment" destination="JSb-V5-4zl" id="Ghe-m0-oul"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EBD-W0-Ag4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1583" y="162"/>
+            <point key="canvasLocation" x="831" y="1580"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="7Nl-gy-9PY">
@@ -684,7 +700,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5P2-hr-MxB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1583" y="848"/>
+            <point key="canvasLocation" x="1579" y="848"/>
         </scene>
         <!--List-->
         <scene sceneID="Esf-N3-qTG">
