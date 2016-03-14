@@ -17,6 +17,7 @@ class DetailViewController: UIViewController{
     @IBOutlet var likeButton: UIButton!
     @IBOutlet var adressLabel: UILabel!
     @IBOutlet var titleView: UIView!
+    @IBOutlet var dateLabel: UILabel!
     
     var hasLikeditem = false
     var item: Item!
@@ -31,6 +32,7 @@ class DetailViewController: UIViewController{
         descriptionLabel.text = item.itemDescription
         likesLabel.text = String(item.likes)
         adressLabel.text = item.addressString
+        dateLabel.text = item.dateCreated
         
         imageView.image = itemImage
         

@@ -32,8 +32,11 @@ extension MapViewController {
     // Edits the pin configuration
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         
+        
         let reuseIdentifier = "pin"
         var pin = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseIdentifier)
+        
+        if annotation.coordinate.latitude != mapView.userLocation.coordinate.latitude && annotation.coordinate.longitude != mapView.userLocation.coordinate.longitude {
         
         if pin == nil {
             pin = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
@@ -41,6 +44,7 @@ extension MapViewController {
         } else {
             pin!.annotation = annotation
             
+        }
         }
         
         return pin
@@ -76,6 +80,9 @@ extension MapViewController {
                     imageView.image = itemsStore.allItems[i].editedImage
                     titleLabel.text = itemsStore.allItems[i].itemTitle
                     descriptionLabel.text = itemsStore.allItems[i].itemDescription
+                    
+                    let destinationPlacemark = MKPlacemark(coordinate: itemsStore.allItems[i].coordinate, addressDictionary: nil)
+                    destination = MKMapItem(placemark: destinationPlacemark)
                     
                     mapView.setCenterCoordinate((view.annotation?.coordinate)!, animated: true)
                     

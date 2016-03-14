@@ -23,6 +23,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     var window: UIWindow!
     var annotations = [MKPointAnnotation]()
     var firstLoadOfMap = true
+    var destination: MKMapItem?
     
     var itemsStore: ItemsStore!
     var imageStore: ImageStore!
@@ -38,7 +39,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     @IBAction func getRouteToItem(sender: UIButton) {
         
+        routeToItem()
         
+        annotationDetailView.hidden = true
         
     }
     
@@ -66,12 +69,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
     }
     
-    func routeToMapItem() {
+    func routeToItem() {
 
-        let directionRequest: MKDirectionsRequest = MKDirectionsRequest()
+        let directionRequest = MKDirectionsRequest()
         
         directionRequest.source = MKMapItem.mapItemForCurrentLocation()
-        directionRequest.destination = MKMapItem.
+        directionRequest.destination = destination
 
         directionRequest.requestsAlternateRoutes = true
 
@@ -79,15 +82,38 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
 
         let directions = MKDirections(request: directionRequest)
         
-        directions.calculateDirectionsWithCompletionHandler ({
-            (response: MKDirectionsResponse?, error: NSError?) in
-            if let routeResponse = response?.routes {
+        
+        
+        directions.calculateDirectionsWithCompletionHandler ({(response:
+            MKDirectionsResponse?, error: NSError?) in
+            
+            if error == nil {
+            for route in response!.routes {
                 
-            } else if let _ = error {
+                self.mapView.addOverlay(route.polyline,
+                    level: MKOverlayLevel.AboveRoads)
+                }
                 
+            } else {
+                
+                let alertController = UIAlertController(title: "Not possible to find directions for this item", message: "Please select a different pin", preferredStyle: .Alert)
+                
+                let okAction = UIAlertAction(title: "OK", style: .Destructive, handler: nil)
+                
+                alertController.addAction(okAction)
+                
+                self.presentViewController(alertController, animated: true, completion: nil)
             }
         })
+        
     }
+    
+    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+        let renderer = MKPolylineRenderer(polyline: overlay as! MKPolyline)
+        renderer.strokeColor = UIColor.blueColor()
+        return renderer
+    }
+    
     
     // Segmented controll to display ALL or RECENT photos
     @IBAction func itemsViewSegment(sender: UISegmentedControl) {

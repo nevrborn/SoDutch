@@ -39,9 +39,9 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
             
             let alertController = UIAlertController(title: "Missing information", message: "Photo, Title and Description is required to save", preferredStyle: .Alert)
             
-            let CompleteAction = UIAlertAction(title: "OK", style: .Destructive, handler: nil)
+            let completeAction = UIAlertAction(title: "OK", style: .Destructive, handler: nil)
             
-            alertController.addAction(CompleteAction)
+            alertController.addAction(completeAction)
             
             presentViewController(alertController, animated: true, completion: nil)
             
@@ -53,6 +53,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
             newItem.originalImage = UIImage(data: originalImageData)
             newItem.editedImage = UIImage(data: editedImageData)
             newItem.addressString = addresseLabel.text
+            newItem.dateCreated = formatADate()
             
             itemsStore.saveChanges()
             
@@ -165,6 +166,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
                 
                 // Set adresseLabel as current location
                 self.addresseLabel.text = addresseString
+                
             }
         })
         
@@ -204,6 +206,15 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         return true
         
+    }
+    
+    func formatADate() -> String {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let d = NSDate()
+        let s = dateFormatter.stringFromDate(d)
+        
+        return s
     }
     
 }

@@ -16,7 +16,7 @@ class Item: NSObject, NSCoding, MKAnnotation {
     
     var itemTitle: String
     var itemDescription: String
-    var dateCreated: NSDate
+    var dateCreated: String = ""
     var originalImage: UIImage?
     var editedImage: UIImage?
     var longitude: Double
@@ -41,7 +41,6 @@ class Item: NSObject, NSCoding, MKAnnotation {
     init(title: String, itemDescription: String, location: CLLocation) {
         self.itemTitle = title
         self.itemDescription = itemDescription
-        self.dateCreated = NSDate()
         self.latitude = location.coordinate.latitude
         self.longitude = location.coordinate.longitude
         self.itemKey = NSUUID().UUIDString
@@ -79,7 +78,7 @@ class Item: NSObject, NSCoding, MKAnnotation {
     required init(coder aDecoder: NSCoder) {
         itemTitle = aDecoder.decodeObjectForKey("itemTitle") as! String
         itemDescription = aDecoder.decodeObjectForKey("itemDescription") as! String
-        dateCreated = aDecoder.decodeObjectForKey("dateCreated") as! NSDate
+        dateCreated = aDecoder.decodeObjectForKey("dateCreated") as! String
         latitude = aDecoder.decodeDoubleForKey("latitude")
         longitude = aDecoder.decodeDoubleForKey("longitude")
         addressString = aDecoder.decodeObjectForKey("addressString") as? String
