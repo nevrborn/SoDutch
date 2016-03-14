@@ -44,26 +44,27 @@ class ItemsStore: NSObject, UIPageViewControllerDataSource {
         return NSKeyedArchiver.archiveRootObject(allItems, toFile: itemArchiveURL.path!)
     }
     
+    
+    // Functions to control the page based view
+    
     func viewControllerAtIndex(index: Int, storyboard: UIStoryboard) -> PageDataViewController? {
-        
         // Return the data view controller for the given index.
         if (allItems.count == 0) || (index >= allItems.count) {
             return nil
         }
         
         // Create a new view controller and pass suitable data.
-        let pageDataViewController = storyboard.instantiateViewControllerWithIdentifier("PageDataViewController") as! PageDataViewController
-        pageDataViewController.imageObject = allItems[index].originalImage
-        pageDataViewController.infoObject = allItems[index].itemTitle
-        pageDataViewController.descriptionObject = allItems[index].itemDescription
-        
-        return pageDataViewController
+        let dataViewController = storyboard.instantiateViewControllerWithIdentifier("PageDataViewController") as! PageDataViewController
+        dataViewController.imageObject = allItems[index].originalImage
+        dataViewController.titleObject = allItems[index].itemTitle
+        dataViewController.descriptionObject = allItems[index].itemDescription
+        dataViewController.item = allItems[index]
+        return dataViewController
     }
     
     func indexOfViewController(viewController: PageDataViewController) -> Int {
         // Return the index of the given data view controller.
-        //return allItems.indexOf(viewController.imageObject!) ?? NSNotFound
-        return 1
+        return allItems.indexOf(viewController.item) ?? NSNotFound
     }
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {

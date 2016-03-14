@@ -21,15 +21,15 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate {
         self.pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
         self.pageViewController!.delegate = self
         
-        let startingViewController: PageDataViewController = self.itemsStore.viewControllerAtIndex(0, storyboard: self.storyboard!)!
+        let startingViewController: PageDataViewController = self.modelController.viewControllerAtIndex(0, storyboard: self.storyboard!)!
         let viewControllers = [startingViewController]
         self.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: false, completion: {done in })
         
-        self.pageViewController!.dataSource = self.itemsStore
+        self.pageViewController!.dataSource = self.modelController
         
         self.addChildViewController(self.pageViewController!)
         self.view.addSubview(self.pageViewController!.view)
-
+        
         var pageViewRect = self.view.bounds
         if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
             pageViewRect = CGRectInset(pageViewRect, 40.0, 40.0)
@@ -50,6 +50,17 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate {
         self.pageViewController!.doubleSided = false
         return .Min
     }
+
     
+    var modelController: ItemsStore {
+        // Return the model controller object, creating it if necessary.
+        // In more complex implementations, the model controller may be passed to the view controller.
+        if _modelController == nil {
+            _modelController = ItemsStore()
+        }
+        return _modelController!
+    }
+    
+    var _modelController: ItemsStore? = nil
     
 }

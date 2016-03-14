@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import Photos
 
 class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate, UITextFieldDelegate {
     
@@ -66,7 +67,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
             let newTags = tagsField!.text?.componentsSeparatedByString(" ")
             
             // Use filter to eliminate empty strings.
-            let nonempty = newTags!.filter { (x) -> Bool in
+            _ = newTags!.filter { (x) -> Bool in
                 !x.isEmpty
             }
             
@@ -122,19 +123,38 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     // Take a photo and saves both the original and edited photo
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         
-        // Get picked image from info dictionary
-        let originalImageInit = info[UIImagePickerControllerOriginalImage] as! UIImage
-        let editedImageInit = info[UIImagePickerControllerEditedImage] as! UIImage
-        
-        // Convert image to PNG
-        originalImageData = UIImagePNGRepresentation(originalImageInit)
-        editedImageData = UIImagePNGRepresentation(editedImageInit)
-        
-        // Display the edited (small) image on screen
-        imageView.image = editedImageInit
-        
-        // Get adresseLabel as current location
-        getLocationAddress(currentLocation)
+        if picker.sourceType == UIImagePickerControllerSourceType.Camera {
+            // Get picked image from info dictionary
+            let originalImageInit = info[UIImagePickerControllerOriginalImage] as! UIImage
+            let editedImageInit = info[UIImagePickerControllerEditedImage] as! UIImage
+            
+            // Convert image to PNG
+            originalImageData = UIImagePNGRepresentation(originalImageInit)
+            editedImageData = UIImagePNGRepresentation(editedImageInit)
+            
+            // Display the edited (small) image on screen
+            imageView.image = editedImageInit
+            
+            // Get adresseLabel as current location
+            getLocationAddress(currentLocation)
+            
+            
+        } else if picker.sourceType == UIImagePickerControllerSourceType.Camera {
+            
+//            let originalImageInit = info[UIImagePickerControllerOriginalImage] as! UIImage
+//            let editedImageInit = info[UIImagePickerControllerEditedImage] as! UIImage
+//            
+//            // Convert image to PNG
+//            originalImageData = UIImagePNGRepresentation(originalImageInit)
+//            editedImageData = UIImagePNGRepresentation(editedImageInit)
+//            
+//            let imageGetRequest = PHAsset
+//            
+//            var url: NSURL = info[UIImagePickerControllerReferenceURL] as! NSURL
+//            
+//            
+            
+        }
         
         dismissViewControllerAnimated(true, completion: nil)
         
