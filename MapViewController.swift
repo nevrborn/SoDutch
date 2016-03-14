@@ -36,6 +36,13 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         mapView.setRegion(MKCoordinateRegion(center: mapView.userLocation.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)), animated: true)
     }
     
+    @IBAction func getRouteToItem(sender: UIButton) {
+        
+        
+        
+    }
+    
+    
     
     // Segmented controll to display Standard, Hybrid or Satelite
     @IBAction func mapTypeSegment(sender: UISegmentedControl) {
@@ -59,6 +66,29 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
     }
     
+    func routeToMapItem() {
+
+        let directionRequest: MKDirectionsRequest = MKDirectionsRequest()
+        
+        directionRequest.source = MKMapItem.mapItemForCurrentLocation()
+        directionRequest.destination = MKMapItem.
+
+        directionRequest.requestsAlternateRoutes = true
+
+        directionRequest.transportType = .Walking
+
+        let directions = MKDirections(request: directionRequest)
+        
+        directions.calculateDirectionsWithCompletionHandler ({
+            (response: MKDirectionsResponse?, error: NSError?) in
+            if let routeResponse = response?.routes {
+                
+            } else if let _ = error {
+                
+            }
+        })
+    }
+    
     // Segmented controll to display ALL or RECENT photos
     @IBAction func itemsViewSegment(sender: UISegmentedControl) {
         
@@ -73,7 +103,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                 mapView.setRegion(MKCoordinateRegion(center: mapView.userLocation.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)), animated: true)
                 firstLoadOfMap = false
             }
-
+            
     }
     
     override func viewDidLoad() {
@@ -83,7 +113,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         mapView.delegate = self
         // Set that it should show the user location
         mapView.showsUserLocation = true
-
+        
         loadInitialData()
         
         annotationDetailView.hidden = true
