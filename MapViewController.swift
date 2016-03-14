@@ -36,6 +36,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         mapView.setRegion(MKCoordinateRegion(center: mapView.userLocation.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)), animated: true)
     }
     
+    @IBAction func getRouteToItem(sender: UIButton) {
+        
+        
+    }
+    
+    
     
     // Segmented controll to display Standard, Hybrid or Satelite
     @IBAction func mapTypeSegment(sender: UISegmentedControl) {
