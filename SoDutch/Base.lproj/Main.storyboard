@@ -20,6 +20,7 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5bX-pY-Mmj">
                                 <rect key="frame" x="0.0" y="64" width="600" height="250"/>
+                                <color key="backgroundColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="250" id="qXQ-Ow-tfo"/>
                                 </constraints>
@@ -323,7 +324,7 @@
                                             </mask>
                                         </variation>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9vN-aZ-P6c">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" ambiguous="YES" misplaced="YES" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9vN-aZ-P6c">
                                         <rect key="frame" x="208" y="32" width="384" height="15"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="352" id="GA2-Om-X5j"/>
@@ -339,7 +340,7 @@
                                             </mask>
                                         </variation>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yEd-tf-IFX">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" ambiguous="YES" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yEd-tf-IFX">
                                         <rect key="frame" x="208" y="8" width="384" height="16"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="434" id="5mR-zU-dZw"/>
@@ -355,13 +356,20 @@
                                             </mask>
                                         </variation>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hrd-th-0F8">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hrd-th-0F8">
                                         <rect key="frame" x="208" y="162" width="102" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <state key="normal" title="Take me there!"/>
                                         <connections>
                                             <action selector="getRouteToItem:" destination="jUL-JO-IGX" eventType="touchUpInside" id="rtx-0k-ju9"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="djX-OS-adq">
+                                        <rect key="frame" x="208" y="133" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -381,6 +389,11 @@
                                     <constraint firstItem="yEd-tf-IFX" firstAttribute="top" secondItem="JUp-FY-5jt" secondAttribute="top" constant="8" id="xQq-7V-XN3"/>
                                     <constraint firstAttribute="height" constant="200" id="zjE-uT-6xV"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="subviews">
+                                        <exclude reference="djX-OS-adq"/>
+                                    </mask>
+                                </variation>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="DoneButton" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="azq-5D-gCy">
                                 <rect key="frame" x="520" y="32" width="40" height="40"/>
@@ -424,6 +437,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Map" image="Map icon" id="LZT-a3-M5T"/>
                     <connections>
+                        <outlet property="adressLabel" destination="djX-OS-adq" id="7hU-Bu-3Td"/>
                         <outlet property="annotationDetailView" destination="JUp-FY-5jt" id="TEg-sC-Tad"/>
                         <outlet property="descriptionLabel" destination="9vN-aZ-P6c" id="wC9-0E-zrS"/>
                         <outlet property="imageView" destination="0h4-K1-REj" id="6v3-F5-wOE"/>
