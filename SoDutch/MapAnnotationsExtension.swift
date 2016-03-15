@@ -13,6 +13,7 @@ extension MapViewController {
     // Creates a pin for all items in allItems[]
     func loadInitialData() {
         
+        
         for item in itemsStore.allItems {
             let title = item.itemTitle
             let itemsKey = item.itemKey
@@ -20,11 +21,15 @@ extension MapViewController {
             let annotation = MKPointAnnotation()
             
             let coordinate = CLLocationCoordinate2DMake(item.latitude, item.longitude)
-            annotation.coordinate = coordinate
-            annotation.title = title
-            annotation.subtitle = itemsKey
             
-            annotations.append(annotation)
+            if coordinate.latitude != mapView.userLocation.coordinate.latitude && coordinate.longitude != mapView.userLocation.coordinate.longitude {
+                
+                annotation.coordinate = coordinate
+                annotation.title = title
+                annotation.subtitle = itemsKey
+                
+                annotations.append(annotation)
+            }
             mapView.addAnnotations(annotations)
         }
     }
@@ -37,14 +42,14 @@ extension MapViewController {
         var pin = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseIdentifier)
         
         if annotation.coordinate.latitude != mapView.userLocation.coordinate.latitude && annotation.coordinate.longitude != mapView.userLocation.coordinate.longitude {
-        
-        if pin == nil {
-            pin = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
             
-        } else {
-            pin!.annotation = annotation
-            
-        }
+            if pin == nil {
+                pin = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
+                
+            } else {
+                pin!.annotation = annotation
+                
+            }
         }
         
         return pin
@@ -101,7 +106,7 @@ extension MapViewController {
     
     func mapView(mapView: MKMapView, didDeselectAnnotationView view: MKAnnotationView) {
         annotationDetailView.hidden = true
-
+        
     }
     
     
