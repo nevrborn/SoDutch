@@ -19,6 +19,10 @@ class DetailViewController: UIViewController{
     @IBOutlet var titleView: UIView!
     @IBOutlet var dateLabel: UILabel!
     
+    @IBAction func tapLabel(sender: AnyObject) {
+    tabBarController?.selectedIndex = 0
+    
+    }
     var hasLikeditem = false
     var item: Item!
     var itemsStore: ItemsStore!
@@ -59,9 +63,10 @@ class DetailViewController: UIViewController{
 
     }
     
+    
     override func viewDidLoad() {
         setLabels()
     }
     
-    
+
 }
