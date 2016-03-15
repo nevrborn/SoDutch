@@ -81,6 +81,7 @@ extension MapViewController {
                     titleLabel.text = itemsStore.allItems[i].itemTitle
                     descriptionLabel.text = itemsStore.allItems[i].itemDescription
                     
+                    
                     let destinationPlacemark = MKPlacemark(coordinate: itemsStore.allItems[i].coordinate, addressDictionary: nil)
                     destination = MKMapItem(placemark: destinationPlacemark)
                     
