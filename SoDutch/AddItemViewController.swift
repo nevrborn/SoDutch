@@ -21,6 +21,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     var originalImageData: NSData!
     var editedImageData: NSData!
     var addressString: String?
+    var locationOfPhoto: CLLocation?
     
     var newItem: Item!
     
@@ -48,7 +49,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
             
         } else {
             
-            newItem = itemsStore.addItem(titleField.text!, newDescription: descriptionField.text!, newLocation: currentLocation)
+            newItem = itemsStore.addItem(titleField.text!, newDescription: descriptionField.text!, newLocation: locationOfPhoto!)
             
             // Set images directly to the item, NOT to ImageStore
             newItem.originalImage = UIImage(data: originalImageData)
@@ -135,24 +136,41 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
             // Display the edited (small) image on screen
             imageView.image = editedImageInit
             
+            locationOfPhoto = currentLocation
+            
             // Get adresseLabel as current location
             getLocationAddress(currentLocation)
             
             
-        } else if picker.sourceType == UIImagePickerControllerSourceType.Camera {
+        } else if picker.sourceType == UIImagePickerControllerSourceType.PhotoLibrary {
             
-//            let originalImageInit = info[UIImagePickerControllerOriginalImage] as! UIImage
-//            let editedImageInit = info[UIImagePickerControllerEditedImage] as! UIImage
-//            
-//            // Convert image to PNG
-//            originalImageData = UIImagePNGRepresentation(originalImageInit)
-//            editedImageData = UIImagePNGRepresentation(editedImageInit)
-//            
-//            let imageGetRequest = PHAsset
-//            
-//            var url: NSURL = info[UIImagePickerControllerReferenceURL] as! NSURL
-//            
-//            
+            var url: [NSURL] = []
+            
+            let originalImageInit = info[UIImagePickerControllerOriginalImage] as! UIImage
+            let editedImageInit = info[UIImagePickerControllerEditedImage] as! UIImage
+            
+            // Convert image to PNG
+            originalImageData = UIImagePNGRepresentation(originalImageInit)
+            editedImageData = UIImagePNGRepresentation(editedImageInit)
+            
+            let imageURL: NSURL = info[UIImagePickerControllerReferenceURL] as! NSURL
+          
+            url.append(imageURL)
+            
+            let fetchedImage = PHAsset.fetchAssetsWithALAssetURLs(url, options: nil)
+            
+            let imageMetaData: PHAsset = fetchedImage.objectAtIndex(0) as! PHAsset
+            
+            // Display the edited (small) image on screen
+            imageView.image = editedImageInit
+            
+            if imageMetaData.location != nil {
+                let imageLocation: CLLocation = imageMetaData.location!
+            
+                locationOfPhoto = imageLocation
+
+                getLocationAddress(imageLocation)
+            }
             
         }
         
@@ -161,7 +179,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     // Convert the CLLocation coordinates to an addresse
-    func getLocationAddress(location:CLLocation) -> String {
+    func getLocationAddress(location: CLLocation) -> String {
         let geocoder = CLGeocoder()
         var placemark: CLPlacemark!
         var addresseString: String = ""
