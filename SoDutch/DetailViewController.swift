@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailViewController: UIViewController{
+class DetailViewController: UIViewController {
     
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
@@ -19,10 +19,20 @@ class DetailViewController: UIViewController{
     @IBOutlet var titleView: UIView!
     @IBOutlet var dateLabel: UILabel!
     
-    @IBAction func tapLabel(sender: AnyObject) {
-    tabBarController?.selectedIndex = 0
+
     
+    @IBAction func goToMap(sender: UIButton) {
+        
+        let tabBarController = self.tabBarController
+        let mapDetailViewController = tabBarController?.childViewControllers[0] as! MapViewController
+        
+        mapDetailViewController.itemTitleFromDetailView = titleLabel.text!
+        
+        mapDetailViewController.comingFromDetailView = true
+        
+        tabBarController?.selectedIndex = 0
     }
+    
     var hasLikeditem = false
     var item: Item!
     var itemsStore: ItemsStore!
@@ -47,7 +57,7 @@ class DetailViewController: UIViewController{
     }
     
     @IBAction func likeItem(sender: UIButton) {
-
+        
         if hasLikeditem == false {
             item.likes += 1
             hasLikeditem = true
@@ -60,7 +70,7 @@ class DetailViewController: UIViewController{
         
         likeButton.imageView!.image = heartImage
         likesLabel.text = String(item.likes)
-
+        
     }
     
     
@@ -68,5 +78,5 @@ class DetailViewController: UIViewController{
         setLabels()
     }
     
-
+    
 }

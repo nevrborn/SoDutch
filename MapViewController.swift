@@ -24,6 +24,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     var annotations = [MKPointAnnotation]()
     var firstLoadOfMap = true
     var destination: MKMapItem?
+    var itemTitleFromDetailView: String?
+    var comingFromDetailView: Bool = false
     
     var itemsStore: ItemsStore!
     var imageStore: ImageStore!
@@ -70,16 +72,16 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     }
     
     func routeToItem() {
-
+        
         let directionRequest = MKDirectionsRequest()
         
         directionRequest.source = MKMapItem.mapItemForCurrentLocation()
         directionRequest.destination = destination
-
+        
         directionRequest.requestsAlternateRoutes = true
-
+        
         directionRequest.transportType = .Walking
-
+        
         let directions = MKDirections(request: directionRequest)
         
         
@@ -88,10 +90,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             MKDirectionsResponse?, error: NSError?) in
             
             if error == nil {
-            for route in response!.routes {
-                
-                self.mapView.addOverlay(route.polyline,
-                    level: MKOverlayLevel.AboveRoads)
+                for route in response!.routes {
+                    
+                    self.mapView.addOverlay(route.polyline,
+                        level: MKOverlayLevel.AboveRoads)
                 }
                 
             } else {
@@ -150,7 +152,27 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     override func viewWillAppear(animated: Bool) {
         loadInitialData()
         
-        annotationDetailView.hidden = true
+        var i = 0
+        var selectedAnnotation: MKAnnotation?
+        
+        if comingFromDetailView == true {
+            
+            while i < annotations.count {
+                if annotations[i].title == itemTitleFromDetailView {
+                    selectedAnnotation = annotations[i]
+
+                    mapView.selectAnnotation(selectedAnnotation!, animated: true)
+                    
+                    annotationDetailView.hidden = false
+                    comingFromDetailView = false
+                    break
+                }
+                
+                i++
+            }
+        } else {
+            annotationDetailView.hidden = true
+        }
     }
     
 }
