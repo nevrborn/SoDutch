@@ -180,7 +180,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
                 
                 self.presentViewController(alertController, animated: true, completion: nil)
                 
-                locationOfPhoto = currentLocation
+                locationOfPhoto = CLLocation()
                 
                 getLocationAddress(locationOfPhoto!)
             }

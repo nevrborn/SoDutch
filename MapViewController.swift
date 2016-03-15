@@ -26,6 +26,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     var destination: MKMapItem?
     var itemTitleFromDetailView: String?
     var comingFromDetailView: Bool = false
+    var routeOverlay: MKOverlay?
     
     var itemsStore: ItemsStore!
     var imageStore: ImageStore!
@@ -46,8 +47,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         annotationDetailView.hidden = true
         
     }
-    
-    
     
     // Segmented controll to display Standard, Hybrid or Satelite
     @IBAction func mapTypeSegment(sender: UISegmentedControl) {
@@ -84,8 +83,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         let directions = MKDirections(request: directionRequest)
         
-        
-        
         directions.calculateDirectionsWithCompletionHandler ({(response:
             MKDirectionsResponse?, error: NSError?) in
             
@@ -94,6 +91,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                     
                     self.mapView.addOverlay(route.polyline,
                         level: MKOverlayLevel.AboveRoads)
+                    
+                    self.routeOverlay = route.polyline
                 }
                 
             } else {

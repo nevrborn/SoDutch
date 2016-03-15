@@ -62,6 +62,10 @@ extension MapViewController {
     
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
         
+        if routeOverlay != nil {
+            self.mapView.removeOverlay(routeOverlay!)
+        }
+        
         var i = 0
         var itemKeyString: String = ""
         let itemKeyStringWrapped = view.annotation!.subtitle
@@ -76,13 +80,13 @@ extension MapViewController {
             while i < itemsStore.allItems.count {
                 
                 if itemKeyString == itemsStore.allItems[i].itemKey {
+                    let item = itemsStore.allItems[i]
                     annotationDetailView.hidden = false
                     imageView.image = itemsStore.allItems[i].editedImage
                     titleLabel.text = itemsStore.allItems[i].itemTitle
                     descriptionLabel.text = itemsStore.allItems[i].itemDescription
                     
-                    
-                    let destinationPlacemark = MKPlacemark(coordinate: itemsStore.allItems[i].coordinate, addressDictionary: nil)
+                    let destinationPlacemark = MKPlacemark(coordinate: CLLocationCoordinate2DMake(item.latitude, item.longitude), addressDictionary: nil)
                     destination = MKMapItem(placemark: destinationPlacemark)
                     
                     mapView.setCenterCoordinate((view.annotation?.coordinate)!, animated: true)
@@ -97,6 +101,7 @@ extension MapViewController {
     
     func mapView(mapView: MKMapView, didDeselectAnnotationView view: MKAnnotationView) {
         annotationDetailView.hidden = true
+
     }
     
     
