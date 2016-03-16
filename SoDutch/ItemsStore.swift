@@ -55,7 +55,7 @@ class ItemsStore: NSObject, UIPageViewControllerDataSource {
         
         // Create a new view controller and pass suitable data.
         let dataViewController = storyboard.instantiateViewControllerWithIdentifier("PageDataViewController") as! PageDataViewController
-        dataViewController.imageObject = allItems[index].originalImage
+        dataViewController.imageObject = allItems[index].editedImage
         dataViewController.titleObject = allItems[index].itemTitle
         dataViewController.descriptionObject = allItems[index].itemDescription
         dataViewController.item = allItems[index]

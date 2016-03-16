@@ -30,10 +30,8 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate {
         self.addChildViewController(self.pageViewController!)
         self.view.addSubview(self.pageViewController!.view)
         
-        var pageViewRect = self.view.bounds
-        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
-            pageViewRect = CGRectInset(pageViewRect, 40.0, 40.0)
-        }
+        let pageViewRect = self.view.bounds
+
         self.pageViewController!.view.frame = pageViewRect
         
         self.pageViewController!.didMoveToParentViewController(self)

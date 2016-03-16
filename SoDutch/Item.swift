@@ -22,9 +22,6 @@ class Item: NSObject, NSCoding, MKAnnotation {
     var longitude: Double
     var latitude: Double
     var addressString: String?
-    var tags: [String]
-    var comments: [String]
-    var likes: Int
     let itemKey: String
     
     var coordinate: CLLocationCoordinate2D {
@@ -44,9 +41,6 @@ class Item: NSObject, NSCoding, MKAnnotation {
         self.latitude = location.coordinate.latitude
         self.longitude = location.coordinate.longitude
         self.itemKey = NSUUID().UUIDString
-        self.likes = 0
-        self.tags = []
-        self.comments = []
     }
     
     // annotation callout opens this mapItem in Maps app
@@ -69,9 +63,6 @@ class Item: NSObject, NSCoding, MKAnnotation {
         aCoder.encodeObject(addressString, forKey: "addressString")
         aCoder.encodeObject(originalImage, forKey: "originalImage")
         aCoder.encodeObject(editedImage, forKey: "editedImage")
-        aCoder.encodeObject(tags, forKey: "tags")
-        aCoder.encodeObject(comments, forKey: "comments")
-        aCoder.encodeInteger(likes, forKey: "likes")
         aCoder.encodeObject(itemKey, forKey: "itemKey")
     }
     
@@ -84,9 +75,6 @@ class Item: NSObject, NSCoding, MKAnnotation {
         addressString = aDecoder.decodeObjectForKey("addressString") as? String
         originalImage = aDecoder.decodeObjectForKey("originalImage") as? UIImage
         editedImage = aDecoder.decodeObjectForKey("editedImage") as? UIImage
-        tags = aDecoder.decodeObjectForKey("tags") as! [String]
-        comments = aDecoder.decodeObjectForKey("comments") as! [String]
-        likes = aDecoder.decodeIntegerForKey("likes") 
         itemKey = aDecoder.decodeObjectForKey("itemKey") as! String
         
         super.init()

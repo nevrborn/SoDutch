@@ -13,14 +13,13 @@ class DetailViewController: UIViewController {
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
-    @IBOutlet var likesLabel: UILabel!
-    @IBOutlet var likeButton: UIButton!
     @IBOutlet var adressLabel: UILabel!
-    @IBOutlet var titleView: UIView!
     @IBOutlet var dateLabel: UILabel!
     
-
+    var item: Item!
+    var itemsStore: ItemsStore!
     
+
     @IBAction func goToMap(sender: UIButton) {
         
         let tabBarController = self.tabBarController
@@ -33,18 +32,12 @@ class DetailViewController: UIViewController {
         tabBarController?.selectedIndex = 0
     }
     
-    var hasLikeditem = false
-    var item: Item!
-    var itemsStore: ItemsStore!
-    var heartImage: UIImage?
-    
     func setLabels() {
         
         let itemImage = item.editedImage
         
         titleLabel.text = item.itemTitle
         descriptionLabel.text = item.itemDescription
-        likesLabel.text = String(item.likes)
         adressLabel.text = item.addressString
         dateLabel.text = item.dateCreated
         
@@ -55,24 +48,6 @@ class DetailViewController: UIViewController {
         imageView.layer.shadowOffset = CGSizeMake(4, 5)
         imageView.layer.shadowRadius = 10
     }
-    
-    @IBAction func likeItem(sender: UIButton) {
-        
-        if hasLikeditem == false {
-            item.likes += 1
-            hasLikeditem = true
-            heartImage = UIImage(named: "redheart.png")
-        } else if hasLikeditem == true {
-            item.likes -= 1
-            hasLikeditem = false
-            heartImage = UIImage(named: "heart.png")
-        }
-        
-        likeButton.imageView!.image = heartImage
-        likesLabel.text = String(item.likes)
-        
-    }
-    
     
     override func viewDidLoad() {
         setLabels()

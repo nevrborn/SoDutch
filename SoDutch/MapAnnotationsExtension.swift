@@ -87,6 +87,8 @@ extension MapViewController {
                 if itemKeyString == itemsStore.allItems[i].itemKey {
                     let item = itemsStore.allItems[i]
                     annotationDetailView.hidden = false
+                    imagePlaceholderView.hidden = false
+                    linkView.hidden = false
                     imageView.image = itemsStore.allItems[i].editedImage
                     titleLabel.text = itemsStore.allItems[i].itemTitle
                     descriptionLabel.text = itemsStore.allItems[i].itemDescription
@@ -106,6 +108,8 @@ extension MapViewController {
     
     func mapView(mapView: MKMapView, didDeselectAnnotationView view: MKAnnotationView) {
         annotationDetailView.hidden = true
+        imagePlaceholderView.hidden = true
+        linkView.hidden = true
         
     }
     

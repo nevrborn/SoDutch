@@ -11,8 +11,9 @@ import MapKit
 
 class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
-    
+    @IBOutlet var linkView: UIView!
     @IBOutlet var annotationDetailView: UIView!
+    @IBOutlet var imagePlaceholderView: UIView!
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
@@ -45,6 +46,16 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         routeToItem()
         
         annotationDetailView.hidden = true
+        imagePlaceholderView.hidden = true
+        
+    }
+    
+    
+    @IBAction func openInAppleMaps(sender: UIButton) {
+        
+    }
+    
+    @IBAction func showDetailView(sender: UIButton) {
         
     }
     
@@ -116,12 +127,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     }
     
     
-    // Segmented controll to display ALL or RECENT photos
-    @IBAction func itemsViewSegment(sender: UISegmentedControl) {
-        
-    }
-    
-    
     // Function to update the user location
     func mapView(mapView: MKMapView, didUpdateUserLocation
         userLocation: MKUserLocation) {
@@ -144,6 +149,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         loadInitialData()
         
         annotationDetailView.hidden = true
+        imagePlaceholderView.hidden = true
+        linkView.hidden = true
         
     }
     
@@ -163,6 +170,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                     mapView.selectAnnotation(selectedAnnotation!, animated: true)
                     
                     annotationDetailView.hidden = false
+                    imagePlaceholderView.hidden = false
+                    linkView.hidden = false
                     comingFromDetailView = false
                     break
                 }
@@ -171,6 +180,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             }
         } else {
             annotationDetailView.hidden = true
+            imagePlaceholderView.hidden = true
+            linkView.hidden = true
         }
     }
     

@@ -12,26 +12,22 @@ import Photos
 
 class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate, UITextFieldDelegate {
     
+    @IBOutlet var imageView: UIImageView!
+    @IBOutlet var titleField: UITextField!
+    @IBOutlet var addresseLabel: UILabel!
+    @IBOutlet var descriptionField: UITextField!
+    
     var currentLocation: CLLocation!
     var locationManager: CLLocationManager!
     
     var itemsStore: ItemsStore!
     var imageStore: ImageStore!
+    var newItem: Item!
     
     var originalImageData: NSData!
     var editedImageData: NSData!
     var addressString: String?
     var locationOfPhoto: CLLocation?
-    
-    var newItem: Item!
-    
-    @IBOutlet var imageView: UIImageView!
-    @IBOutlet var titleField: UITextField!
-    @IBOutlet var addresseLabel: UILabel!
-    @IBOutlet var descriptionField: UITextField!
-    @IBOutlet var tagsField: UITextField?
-    @IBOutlet var titleTextView: UIView!
-    
     
     // Actions that happen when user presses DONE button
     @IBAction func finishItem(sender: AnyObject) {
@@ -63,18 +59,6 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
             titleField.text = ""
             addresseLabel.text = ""
             descriptionField.text = ""
-            
-            // This string contains some empty sections.
-            let newTags = tagsField!.text?.componentsSeparatedByString(" ")
-            
-            // Use filter to eliminate empty strings.
-            _ = newTags!.filter { (x) -> Bool in
-                !x.isEmpty
-            }
-            
-            for item in newTags! {
-                newItem.tags.append(item)
-            }
             
             tabBarController?.selectedIndex = 2
         }

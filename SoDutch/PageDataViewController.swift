@@ -10,6 +10,10 @@ import UIKit
 
 class PageDataViewController: UIViewController {
     
+    @IBOutlet var imageView: UIImageView!
+    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var descriptionLabel: UILabel!
+    
     var imageObject: UIImage?
     var titleObject: String?
     var descriptionObject: String?
@@ -17,10 +21,6 @@ class PageDataViewController: UIViewController {
     
     var itemsStore: ItemsStore!
     var item: Item!
-    
-    @IBOutlet var imageView: UIImageView!
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var descriptionLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
