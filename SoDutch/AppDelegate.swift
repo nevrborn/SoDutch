@@ -45,9 +45,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let viewControllerPageData = storyboard.instantiateViewControllerWithIdentifier("PageDataViewController") as! PageDataViewController
         viewControllerPageData.itemsStore = itemsStore
         
-        //let viewControllerDetail = tabController.viewControllers![2].childViewControllers[0].childViewControllers[0] as! DetailViewController
-        // viewControllerDetail.itemsStore = itemsStore
-        
         return true
     }
     

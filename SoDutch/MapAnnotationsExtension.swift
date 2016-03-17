@@ -72,7 +72,7 @@ extension MapViewController {
         }
         
         var i = 0
-        var itemKeyString: String = ""
+        itemKeyString = ""
         let itemKeyStringWrapped = view.annotation!.subtitle
         
         if view.annotation?.coordinate.latitude != mapView.userLocation.coordinate.latitude && view.annotation?.coordinate.longitude != mapView.userLocation.coordinate.longitude {

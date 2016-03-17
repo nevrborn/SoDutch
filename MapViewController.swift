@@ -19,6 +19,17 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     @IBOutlet var descriptionLabel: UILabel!
     @IBOutlet var updateLocationButton: UIButton!
     
+    @IBOutlet var detailView: UIView!
+    @IBOutlet var detailImageView: UIView!
+    @IBOutlet var detailImage: UIImageView!
+    @IBOutlet var detailTitle: UILabel!
+    @IBOutlet var detailDescription: UILabel!
+    @IBOutlet var detailAdress: UILabel!
+    @IBOutlet var detailDate: UILabel!
+    @IBOutlet var hideDetailButton: UIButton!
+    @IBOutlet var showDetailButton: UIButton!
+    
+    
     var location: CLLocation!
     var locationManager: CLLocationManager!
     var window: UIWindow!
@@ -28,6 +39,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     var itemTitleFromDetailView: String?
     var comingFromDetailView: Bool = false
     var routeOverlay: MKOverlay?
+    var itemKeyString: String = ""
+    var hideDetailView = false
     
     var itemsStore: ItemsStore!
     var imageStore: ImageStore!
@@ -43,21 +56,61 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     @IBAction func getRouteToItem(sender: UIButton) {
         
-        routeToItem()
+        routeToItem("inApp")
         
         annotationDetailView.hidden = true
         imagePlaceholderView.hidden = true
+        detailView.hidden = true
         
     }
     
     
     @IBAction func openInAppleMaps(sender: UIButton) {
         
+        routeToItem("appleMap")
     }
     
     @IBAction func showDetailView(sender: UIButton) {
         
+        if showDetailButton.highlighted == true && hideDetailView == false {
+            var i = 0
+            
+            while i < itemsStore.allItems.count {
+                
+                if itemKeyString == itemsStore.allItems[i].itemKey {
+                    
+                    let item = itemsStore.allItems[i]
+                    annotationDetailView.hidden = true
+                    detailView.hidden = false
+                    
+                    showDetailButton.setTitle("Hide Details", forState: .Normal)
+                    showDetailButton.setTitleColor(UIColor.redColor(), forState: .Normal)
+                    
+                    detailImage.image = item.editedImage
+                    detailTitle.text = item.itemTitle
+                    detailDescription.text = item.itemDescription
+                    detailDate.text = item.dateCreated
+                    detailAdress.text = item.addressString
+                    
+                    hideDetailView = true
+                    
+                    i = itemsStore.allItems.count
+                }
+                i++
+            }
+            
+        } else if hideDetailView == true {
+            detailView.hidden = true
+            annotationDetailView.hidden = false
+            hideDetailView = false
+            
+            showDetailButton.setTitle("Show Details", forState: .Normal)
+            showDetailButton.setTitleColor(UIColor.init(red: 0.0, green: 122/255, blue: 1.0, alpha: 1), forState: .Normal)
+        }
     }
+    
+    
+    
     
     // Segmented controll to display Standard, Hybrid or Satelite
     @IBAction func mapTypeSegment(sender: UISegmentedControl) {
@@ -81,7 +134,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
     }
     
-    func routeToItem() {
+    func routeToItem(mapOption: String) {
+        
+        if routeOverlay != nil {
+            self.mapView.removeOverlay(routeOverlay!)
+        }
         
         let directionRequest = MKDirectionsRequest()
         
@@ -98,12 +155,25 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             MKDirectionsResponse?, error: NSError?) in
             
             if error == nil {
-                for route in response!.routes {
+                
+                if mapOption == "inApp" {
+                    /* Display the directions in the SoDutch App */
+                    for route in response!.routes {
+                        
+                        self.mapView.addOverlay(route.polyline,
+                            level: MKOverlayLevel.AboveRoads)
+                        
+                        self.routeOverlay = route.polyline
+                    }
+                } else if mapOption == "appleMap" {
+                    /* Display the directions on the Maps app */
+                    let launchOptions = [
+                        MKLaunchOptionsDirectionsModeKey:
+                        MKLaunchOptionsDirectionsModeWalking]
                     
-                    self.mapView.addOverlay(route.polyline,
-                        level: MKOverlayLevel.AboveRoads)
-                    
-                    self.routeOverlay = route.polyline
+                    MKMapItem.openMapsWithItems(
+                        [response!.source, response!.destination],
+                        launchOptions: launchOptions)
                 }
                 
             } else {
@@ -150,7 +220,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         annotationDetailView.hidden = true
         imagePlaceholderView.hidden = true
+        detailView.hidden = true
         linkView.hidden = true
+        hideDetailView = false
         
     }
     
@@ -166,13 +238,15 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             while i < annotations.count {
                 if annotations[i].title == itemTitleFromDetailView {
                     selectedAnnotation = annotations[i]
-
+                    
                     mapView.selectAnnotation(selectedAnnotation!, animated: true)
                     
                     annotationDetailView.hidden = false
                     imagePlaceholderView.hidden = false
                     linkView.hidden = false
                     comingFromDetailView = false
+                    detailView.hidden = true
+                    hideDetailView = false
                     break
                 }
                 
@@ -182,8 +256,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             annotationDetailView.hidden = true
             imagePlaceholderView.hidden = true
             linkView.hidden = true
+            detailView.hidden = true
+            hideDetailView = false
         }
     }
+    
     
 }
 
