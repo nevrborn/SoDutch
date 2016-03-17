@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class ItemViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -39,6 +40,7 @@ class ItemViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.itemImage.image = itemImage
         
         
+        
         return cell
         
     }
@@ -59,12 +61,15 @@ class ItemViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
+    
     override func viewDidLoad() {
+        reloadInputViews()
         super.viewDidLoad()
         
     }
     
     override func viewWillAppear(animated: Bool) {
+    
         reloadInputViews()
         
     }

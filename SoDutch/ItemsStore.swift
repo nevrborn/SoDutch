@@ -45,7 +45,7 @@ class ItemsStore: NSObject, UIPageViewControllerDataSource {
     }
     
     
-    // Functions to control the page based view
+    // ** Functions to control the page based view ***
     
     func viewControllerAtIndex(index: Int, storyboard: UIStoryboard) -> PageDataViewController? {
         // Return the data view controller for the given index.

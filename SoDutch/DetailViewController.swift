@@ -16,9 +16,11 @@ class DetailViewController: UIViewController {
     @IBOutlet var descriptionLabel: UILabel!
     @IBOutlet var adressLabel: UILabel!
     @IBOutlet var dateLabel: UILabel!
+    @IBOutlet var distanceLabel: UILabel!
     
     var item: Item!
     var itemsStore: ItemsStore!
+    let currentLocation = CLLocation!()
     
 
     @IBAction func goToMap(sender: UIButton) {

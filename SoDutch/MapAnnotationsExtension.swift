@@ -89,9 +89,10 @@ extension MapViewController {
                     annotationDetailView.hidden = false
                     imagePlaceholderView.hidden = false
                     linkView.hidden = false
-                    imageView.image = itemsStore.allItems[i].editedImage
-                    titleLabel.text = itemsStore.allItems[i].itemTitle
-                    descriptionLabel.text = itemsStore.allItems[i].itemDescription
+                    let coordinate = CLLocation(latitude: item.latitude, longitude: item.longitude)
+                    imageView.image = item.editedImage
+                    titleLabel.text = item.itemTitle
+                    distanceLabel.text = String(Int(distanceToItem(coordinate)))
                     
                     let destinationPlacemark = MKPlacemark(coordinate: CLLocationCoordinate2DMake(item.latitude, item.longitude), addressDictionary: nil)
                     destination = MKMapItem(placemark: destinationPlacemark)

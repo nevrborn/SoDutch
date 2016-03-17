@@ -30,9 +30,10 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate {
         self.addChildViewController(self.pageViewController!)
         self.view.addSubview(self.pageViewController!.view)
         
-        let pageViewRect = self.view.bounds
+        let width = startingViewController.view.frame.width
+        let height = startingViewController.view.frame.height
 
-        self.pageViewController!.view.frame = pageViewRect
+        self.pageViewController!.view.frame = CGRectMake(0, 0, width, height)
         
         self.pageViewController!.didMoveToParentViewController(self)
         
@@ -43,7 +44,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate {
         
         let currentViewController = self.pageViewController!.viewControllers![0]
         let viewControllers = [currentViewController]
-        self.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: true, completion: {done in })
+        self.pageViewController!.setViewControllers(viewControllers, direction: .Forward, animated: false, completion: {done in })
         
         self.pageViewController!.doubleSided = false
         return .Min

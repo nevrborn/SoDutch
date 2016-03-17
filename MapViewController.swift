@@ -16,7 +16,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     @IBOutlet var imagePlaceholderView: UIView!
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var descriptionLabel: UILabel!
     @IBOutlet var updateLocationButton: UIButton!
     
     @IBOutlet var detailView: UIView!
@@ -27,6 +26,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     @IBOutlet var detailAdress: UILabel!
     @IBOutlet var detailDate: UILabel!
     @IBOutlet var showDetailButton: UIButton!
+    @IBOutlet var distanceLabel: UILabel!
     
     
     var location: CLLocation!
@@ -113,7 +113,13 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
     }
     
-    
+    func distanceToItem(itemCoordinate: CLLocation) -> Double {
+
+        let currentLocation = mapView.userLocation.location
+        let distance: CLLocationDistance = currentLocation!.distanceFromLocation(itemCoordinate)
+        
+        return distance
+    }
     
     
     // Segmented controll to display Standard, Hybrid or Satelite
@@ -233,6 +239,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     // Will reload all annotation when the view appears again
     override func viewWillAppear(animated: Bool) {
         loadInitialData()
+        
+        showDetailButton.setTitle("Show Details", forState: .Normal)
+        showDetailButton.setTitleColor(UIColor.init(red: 0.0, green: 122/255, blue: 1.0, alpha: 1), forState: .Normal)
         
         var i = 0
         var selectedAnnotation: MKAnnotation?
