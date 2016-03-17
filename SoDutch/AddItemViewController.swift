@@ -154,7 +154,8 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
                 locationOfPhoto = imageLocation
 
                 getLocationAddress(imageLocation)
-            } else {
+                
+            } else if imageMetaData.location == nil {
                 
                 let alertController = UIAlertController(title: "No location associated with picture", message: "Will set location to current location", preferredStyle: .Alert)
                 
@@ -164,9 +165,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
                 
                 self.presentViewController(alertController, animated: true, completion: nil)
                 
-                locationOfPhoto = CLLocation()
-                
-                getLocationAddress(locationOfPhoto!)
+                getLocationAddress(currentLocation)
             }
             
         }

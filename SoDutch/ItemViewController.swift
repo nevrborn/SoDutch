@@ -63,14 +63,13 @@ class ItemViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     override func viewDidLoad() {
-        reloadInputViews()
+        tableView.reloadData()
         super.viewDidLoad()
         
     }
     
     override func viewWillAppear(animated: Bool) {
-    
-        reloadInputViews()
+        tableView.reloadData()
         
     }
     

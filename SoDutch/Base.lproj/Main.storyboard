@@ -356,7 +356,7 @@
                                             <constraint firstAttribute="height" constant="41" id="JUf-pc-jO5"/>
                                             <constraint firstAttribute="width" constant="130" id="Mir-bb-HSY"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <state key="normal" title="Show in Apple Maps"/>
                                         <connections>
                                             <action selector="openInAppleMaps:" destination="jUL-JO-IGX" eventType="touchUpInside" id="QPY-kK-xUc"/>
@@ -368,19 +368,19 @@
                                             <constraint firstAttribute="width" constant="76" id="Fs3-io-UYF"/>
                                             <constraint firstAttribute="height" constant="40" id="ctI-gC-g5O"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <state key="normal" title=" Show Route"/>
                                         <connections>
                                             <action selector="getRouteToItem:" destination="jUL-JO-IGX" eventType="touchUpInside" id="rtx-0k-ju9"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="cfg-Kd-O6h">
-                                        <rect key="frame" x="500" y="0.0" width="70" height="41"/>
+                                        <rect key="frame" x="496" y="0.0" width="74" height="41"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="70" id="3Z9-4l-1Gh"/>
+                                            <constraint firstAttribute="width" constant="74" id="3Z9-4l-1Gh"/>
                                             <constraint firstAttribute="height" constant="41" id="E8m-DT-a2z"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <state key="normal" title=" Show Details"/>
                                         <connections>
                                             <action selector="showDetailView:" destination="jUL-JO-IGX" eventType="touchUpInside" id="aqZ-f2-SSe"/>
@@ -481,8 +481,8 @@
                                             </mask>
                                         </variation>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o0b-24-3VT">
-                                        <rect key="frame" x="120" y="330" width="31" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o0b-24-3VT">
+                                        <rect key="frame" x="120" y="324" width="460" height="27"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -505,9 +505,10 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="CVk-o6-4Ys" firstAttribute="leading" secondItem="o0b-24-3VT" secondAttribute="leading" id="3XK-uT-5YT"/>
+                                    <constraint firstAttribute="trailing" secondItem="o0b-24-3VT" secondAttribute="trailing" constant="20" id="6e9-ks-JUD"/>
                                     <constraint firstAttribute="trailing" secondItem="wA8-HW-50s" secondAttribute="trailing" constant="20" id="8Eb-ky-NpK"/>
                                     <constraint firstItem="BNE-cJ-iHY" firstAttribute="leading" secondItem="OFU-3Z-0o8" secondAttribute="leading" id="8Y7-CZ-DNv"/>
-                                    <constraint firstItem="o0b-24-3VT" firstAttribute="centerY" secondItem="OFU-3Z-0o8" secondAttribute="centerY" id="Av2-cI-JJH"/>
+                                    <constraint firstItem="o0b-24-3VT" firstAttribute="centerY" secondItem="OFU-3Z-0o8" secondAttribute="centerY" constant="-3" id="Av2-cI-JJH"/>
                                     <constraint firstItem="BNE-cJ-iHY" firstAttribute="top" secondItem="OFU-3Z-0o8" secondAttribute="bottom" constant="15" id="Dog-Z7-TmM"/>
                                     <constraint firstItem="fgh-qU-yCM" firstAttribute="leading" secondItem="zqc-X5-5Bw" secondAttribute="leading" constant="20" id="Ev0-D0-n6W"/>
                                     <constraint firstItem="OEK-RN-hwc" firstAttribute="top" secondItem="zqc-X5-5Bw" secondAttribute="top" id="M7s-5B-6LK"/>
@@ -521,7 +522,7 @@
                                     <constraint firstItem="OFU-3Z-0o8" firstAttribute="leading" secondItem="fgh-qU-yCM" secondAttribute="leading" id="eGP-lo-Gj9"/>
                                     <constraint firstItem="CVk-o6-4Ys" firstAttribute="top" secondItem="o0b-24-3VT" secondAttribute="bottom" constant="15" id="iyX-lg-Fob"/>
                                     <constraint firstItem="wA8-HW-50s" firstAttribute="top" secondItem="OEK-RN-hwc" secondAttribute="bottom" constant="20" id="kz6-7x-HYH"/>
-                                    <constraint firstItem="o0b-24-3VT" firstAttribute="top" secondItem="fgh-qU-yCM" secondAttribute="bottom" constant="20" id="r17-V3-lI0"/>
+                                    <constraint firstItem="o0b-24-3VT" firstAttribute="top" secondItem="fgh-qU-yCM" secondAttribute="bottom" constant="14" id="r17-V3-lI0"/>
                                     <constraint firstItem="CVk-o6-4Ys" firstAttribute="leading" secondItem="BNE-cJ-iHY" secondAttribute="trailing" constant="50" id="s7w-lp-Y9m"/>
                                     <constraint firstAttribute="trailing" secondItem="OEK-RN-hwc" secondAttribute="trailing" id="t2M-Y8-O56"/>
                                     <constraint firstItem="o0b-24-3VT" firstAttribute="leading" secondItem="OFU-3Z-0o8" secondAttribute="trailing" constant="50" id="tlh-Jw-Zsw"/>
@@ -579,6 +580,7 @@
                         <outlet property="linkView" destination="H65-H3-PZx" id="Ti4-GB-Ker"/>
                         <outlet property="mapSegment" destination="UYU-y9-chf" id="hTf-xf-4pS"/>
                         <outlet property="mapView" destination="Wwd-8w-yHc" id="hlh-gU-vVd"/>
+                        <outlet property="meterKmLabel" destination="99t-Q8-95M" id="v1C-1P-GmX"/>
                         <outlet property="showDetailButton" destination="cfg-Kd-O6h" id="21F-8S-Yhm"/>
                         <outlet property="titleLabel" destination="yEd-tf-IFX" id="IfW-W3-Ubm"/>
                         <outlet property="updateLocationButton" destination="azq-5D-gCy" id="WH6-YO-cNS"/>
@@ -652,7 +654,7 @@
                                             <constraint firstAttribute="height" constant="40" id="aVp-aX-qPz"/>
                                             <constraint firstAttribute="width" constant="100" id="uI4-Rf-dfj"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <state key="normal" title=" Show in Map"/>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -665,13 +667,13 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="s4u-Ir-gP7">
-                                        <rect key="frame" x="470" y="62" width="100" height="40"/>
+                                        <rect key="frame" x="462" y="62" width="108" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="100" id="CY0-zm-GMR"/>
                                             <constraint firstAttribute="height" constant="40" id="XUO-mV-Dp5"/>
-                                            <constraint firstAttribute="width" constant="100" id="hv0-du-xTq"/>
+                                            <constraint firstAttribute="width" constant="108" id="hv0-du-xTq"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <state key="normal" title="Show in Apple Maps"/>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -798,12 +800,12 @@
                                 <rect key="frame" x="0.0" y="547" width="600" height="53"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="u7w-ZB-jKD">
-                                        <rect key="frame" x="470" y="0.0" width="100" height="40"/>
+                                        <rect key="frame" x="462" y="0.0" width="108" height="40"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="100" id="emh-IE-7XZ"/>
+                                            <constraint firstAttribute="width" constant="108" id="emh-IE-7XZ"/>
                                             <constraint firstAttribute="height" constant="40" id="r4x-7T-fEe"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <state key="normal" title="Show in Apple Maps"/>
                                         <connections>
                                             <action selector="goToAppleMap:" destination="rSw-Wn-MJG" eventType="touchUpInside" id="sMo-RW-Ovi"/>
@@ -815,7 +817,7 @@
                                             <constraint firstAttribute="width" constant="100" id="XdI-Na-Zwj"/>
                                             <constraint firstAttribute="height" constant="40" id="slq-s9-GQy"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <state key="normal" title=" Show in Map"/>
                                         <connections>
                                             <action selector="goToMap:" destination="rSw-Wn-MJG" eventType="touchUpInside" id="pJ3-6M-oua"/>

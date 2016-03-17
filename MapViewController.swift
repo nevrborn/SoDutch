@@ -27,6 +27,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     @IBOutlet var detailDate: UILabel!
     @IBOutlet var showDetailButton: UIButton!
     @IBOutlet var distanceLabel: UILabel!
+    @IBOutlet var meterKmLabel: UILabel!
     
     
     var location: CLLocation!

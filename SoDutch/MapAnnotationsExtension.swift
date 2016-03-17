@@ -92,7 +92,17 @@ extension MapViewController {
                     let coordinate = CLLocation(latitude: item.latitude, longitude: item.longitude)
                     imageView.image = item.editedImage
                     titleLabel.text = item.itemTitle
-                    distanceLabel.text = String(Int(distanceToItem(coordinate)))
+                    
+                    var distanceItem = Int(distanceToItem(coordinate))
+                    
+                    if distanceItem < 1000 {
+                        distanceLabel.text = String(distanceItem)
+                        meterKmLabel.text = "meters away"
+                    } else {
+                        distanceItem = distanceItem / 1000
+                        distanceLabel.text = String(distanceItem)
+                        meterKmLabel.text = "km away"
+                    }
                     
                     let destinationPlacemark = MKPlacemark(coordinate: CLLocationCoordinate2DMake(item.latitude, item.longitude), addressDictionary: nil)
                     destination = MKMapItem(placemark: destinationPlacemark)
