@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class DetailViewController: UIViewController {
     
@@ -31,6 +32,17 @@ class DetailViewController: UIViewController {
         
         tabBarController?.selectedIndex = 0
     }
+    
+    @IBAction func goToAppleMap(sender: UIButton) {
+        let tabBarController = self.tabBarController
+        let mapDetailViewController = tabBarController?.childViewControllers[0] as! MapViewController
+        
+        let destinationPlacemark = MKPlacemark(coordinate: CLLocationCoordinate2DMake(item.latitude, item.longitude), addressDictionary: nil)
+        mapDetailViewController.destination = MKMapItem(placemark: destinationPlacemark)
+        
+        mapDetailViewController.routeToItem("appleMap")
+    }
+    
     
     func setLabels() {
         

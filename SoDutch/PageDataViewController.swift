@@ -7,12 +7,34 @@
 //
 
 import UIKit
+import MapKit
 
 class PageDataViewController: UIViewController {
     
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
+    
+    @IBAction func showInMap(sender: UIButton) {
+        let tabBarController = self.tabBarController
+        let mapDetailViewController = tabBarController?.childViewControllers[0] as! MapViewController
+        
+        mapDetailViewController.itemTitleFromDetailView = titleLabel.text!
+        
+        mapDetailViewController.comingFromDetailView = true
+        
+        tabBarController?.selectedIndex = 0
+    }
+    
+    @IBAction func showInAppleMaps(sender: UIButton) {
+        let tabBarController = self.tabBarController
+        let mapDetailViewController = tabBarController?.childViewControllers[0] as! MapViewController
+        
+        let destinationPlacemark = MKPlacemark(coordinate: CLLocationCoordinate2DMake(item.latitude, item.longitude), addressDictionary: nil)
+        mapDetailViewController.destination = MKMapItem(placemark: destinationPlacemark)
+        
+        mapDetailViewController.routeToItem("appleMap")
+    }
     
     var imageObject: UIImage?
     var titleObject: String?

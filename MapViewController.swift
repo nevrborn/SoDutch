@@ -26,7 +26,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     @IBOutlet var detailDescription: UILabel!
     @IBOutlet var detailAdress: UILabel!
     @IBOutlet var detailDate: UILabel!
-    @IBOutlet var hideDetailButton: UIButton!
     @IBOutlet var showDetailButton: UIButton!
     
     
@@ -62,6 +61,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         imagePlaceholderView.hidden = true
         detailView.hidden = true
         
+        showDetailButton.setTitle("Show Details", forState: .Normal)
+        showDetailButton.setTitleColor(UIColor.init(red: 0.0, green: 122/255, blue: 1.0, alpha: 1), forState: .Normal)
+        
     }
     
     
@@ -81,6 +83,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                     
                     let item = itemsStore.allItems[i]
                     annotationDetailView.hidden = true
+                    imagePlaceholderView.hidden = true
                     detailView.hidden = false
                     
                     showDetailButton.setTitle("Hide Details", forState: .Normal)
@@ -101,6 +104,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             
         } else if hideDetailView == true {
             detailView.hidden = true
+            imagePlaceholderView.hidden = false
             annotationDetailView.hidden = false
             hideDetailView = false
             
@@ -238,8 +242,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             while i < annotations.count {
                 if annotations[i].title == itemTitleFromDetailView {
                     selectedAnnotation = annotations[i]
+                    let region = selectedAnnotation?.coordinate
                     
                     mapView.selectAnnotation(selectedAnnotation!, animated: true)
+                    mapView.setRegion(MKCoordinateRegion(center: region!, span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)), animated: true)
+                    
                     
                     annotationDetailView.hidden = false
                     imagePlaceholderView.hidden = false
