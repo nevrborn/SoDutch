@@ -53,10 +53,12 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
             
             itemsStore.saveChanges()
             
+            // Sets titleField etc to default values after creating new item
             imageView.image = nil
             titleField.text = ""
-            addresseLabel.text = ""
             descriptionField.text = ""
+            imageView.image = UIImage(named: "CameraPlaceHolderImage")
+            addresseLabel.text = "Addresse will come automatically with picture"
             
             tabBarController?.selectedIndex = 2
         }
@@ -223,11 +225,8 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         view.addGestureRecognizer(tap)
-        
-        
     }
-    
-    
+
     func dismissKeyboard() {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)

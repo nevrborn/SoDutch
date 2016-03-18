@@ -124,12 +124,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     func distanceToItem(itemCoordinate: CLLocation) -> Double {
         let currentLocation = mapView.userLocation.location
         let distance: CLLocationDistance = currentLocation!.distanceFromLocation(itemCoordinate)
-        let oneDecimalFormatter = NSNumberFormatter()
-        oneDecimalFormatter.numberStyle = .DecimalStyle
-        // Rounding down drops the extra digits without rounding.
-        oneDecimalFormatter.roundingMode = NSNumberFormatterRoundingMode.RoundDown
-        oneDecimalFormatter.maximumFractionDigits = 2
-        oneDecimalFormatter.stringFromNumber(distance)
+        
         return distance
     }
     
@@ -271,6 +266,17 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             detailView.hidden = true
             hideDetailView = false
         }
+    }
+    
+    func doubleNumberFormatter(number: Double) -> String {
+        // Formates distance to only have two decimals
+        let decimalFormatter = NSNumberFormatter()
+        decimalFormatter.numberStyle = .DecimalStyle
+        decimalFormatter.roundingMode = NSNumberFormatterRoundingMode.RoundDown
+        decimalFormatter.maximumFractionDigits = 2
+        let formattedNumber = decimalFormatter.stringFromNumber(number)
+        
+        return formattedNumber!
     }
     
     
