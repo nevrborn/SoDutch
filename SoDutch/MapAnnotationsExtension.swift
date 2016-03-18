@@ -13,7 +13,6 @@ extension MapViewController {
     // Creates a pin for all items in allItems[]
     func loadInitialData() {
         
-        
         for item in itemsStore.allItems {
             let title = item.itemTitle
             let itemsKey = item.itemKey
@@ -22,11 +21,12 @@ extension MapViewController {
             
             let coordinate = CLLocationCoordinate2DMake(item.latitude, item.longitude)
             
+            // Makes sure the user location is not added as a pin
             if coordinate.latitude != mapView.userLocation.coordinate.latitude && coordinate.longitude != mapView.userLocation.coordinate.longitude {
                 
                 annotation.coordinate = coordinate
                 annotation.title = title
-                // Use the subtitle to function as the 
+                // Use the subtitle to function as the itemsKey, to be able to match annotation to item in itemsStore
                 annotation.subtitle = itemsKey
                 
                 annotations.append(annotation)
@@ -38,7 +38,6 @@ extension MapViewController {
     // Edits the pin configuration
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         
-        
         let reuseIdentifier = "pin"
         var pin = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseIdentifier)
         
@@ -46,13 +45,10 @@ extension MapViewController {
             
             if pin == nil {
                 pin = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
-                
             } else {
                 pin!.annotation = annotation
-                
             }
         }
-        
         return pin
     }
     
@@ -60,12 +56,11 @@ extension MapViewController {
     func mapView(mapView: MKMapView, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         
         if control == annotationView.rightCalloutAccessoryView {
-            
             tabBarController?.selectedIndex = 2
-            
         }
     }
     
+    // WHen an annotation is selected a small view will appear with photo and title of annotation
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
         
         if routeOverlay != nil {
@@ -82,7 +77,6 @@ extension MapViewController {
                 itemKeyString = (itemKeyStringWrapped!?.uppercaseString)!
             }
             
-            
             while i < itemsStore.allItems.count {
                 
                 if itemKeyString == itemsStore.allItems[i].itemKey {
@@ -96,6 +90,7 @@ extension MapViewController {
                     
                     var distanceItem = distanceToItem(coordinate)
                     
+                    // If distance is over 1000m, then change label to "km away"
                     if distanceItem < 1000 {
                         distanceLabel.text = String(distanceItem)
                         meterKmLabel.text = "meters away"
@@ -105,6 +100,7 @@ extension MapViewController {
                         meterKmLabel.text = "km away"
                     }
                     
+                    // Sets the destination variable to be used for making routes
                     let destinationPlacemark = MKPlacemark(coordinate: CLLocationCoordinate2DMake(item.latitude, item.longitude), addressDictionary: nil)
                     destination = MKMapItem(placemark: destinationPlacemark)
                     
@@ -118,13 +114,12 @@ extension MapViewController {
         }
     }
     
+    // When you deselect the annotation the small view will be hidden
     func mapView(mapView: MKMapView, didDeselectAnnotationView view: MKAnnotationView) {
         annotationDetailView.hidden = true
         imagePlaceholderView.hidden = true
         linkView.hidden = true
         
     }
-    
-    
     
 }

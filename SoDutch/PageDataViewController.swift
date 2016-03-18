@@ -15,6 +15,15 @@ class PageDataViewController: UIViewController {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
     
+    var imageObject: UIImage?
+    var titleObject: String?
+    var descriptionObject: String?
+    var itemKey: String?
+    
+    var itemsStore: ItemsStore!
+    var item: Item!
+    
+    // Shows item in map
     @IBAction func showInMap(sender: UIButton) {
         let tabBarController = self.tabBarController
         let mapDetailViewController = tabBarController?.childViewControllers[0] as! MapViewController
@@ -26,6 +35,7 @@ class PageDataViewController: UIViewController {
         tabBarController?.selectedIndex = 0
     }
     
+    // Opens up Apple Maps and give directions
     @IBAction func showInAppleMaps(sender: UIButton) {
         let tabBarController = self.tabBarController
         let mapDetailViewController = tabBarController?.childViewControllers[0] as! MapViewController
@@ -36,17 +46,8 @@ class PageDataViewController: UIViewController {
         mapDetailViewController.routeToItem("appleMap")
     }
     
-    var imageObject: UIImage?
-    var titleObject: String?
-    var descriptionObject: String?
-    var itemKey: String?
-    
-    var itemsStore: ItemsStore!
-    var item: Item!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     override func viewWillAppear(animated: Bool) {

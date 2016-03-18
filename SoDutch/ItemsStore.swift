@@ -11,7 +11,6 @@ import CoreLocation
 
 class ItemsStore: NSObject, UIPageViewControllerDataSource {
     
-    // Create an array where all the items are stored in
     var allItems = [Item]()
     
     // Function that will retrieve all stored items in allItems[]
@@ -67,6 +66,7 @@ class ItemsStore: NSObject, UIPageViewControllerDataSource {
         return allItems.indexOf(viewController.item) ?? NSNotFound
     }
     
+    // Returns view controller before current view controller
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
         var index = self.indexOfViewController(viewController as! PageDataViewController)
         if (index == 0) || (index == NSNotFound) {
@@ -77,6 +77,7 @@ class ItemsStore: NSObject, UIPageViewControllerDataSource {
         return self.viewControllerAtIndex(index, storyboard: viewController.storyboard!)
     }
     
+    // Returns view controller after current view controller
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
         var index = self.indexOfViewController(viewController as! PageDataViewController)
         if index == NSNotFound {

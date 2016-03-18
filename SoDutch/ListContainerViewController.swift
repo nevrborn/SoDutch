@@ -16,6 +16,7 @@ class ListContainerViewController: UIViewController {
     
     var itemsStore: ItemsStore!
     
+    // Segmented button to switch between List and Swipe view
     @IBAction func switchView(sender: UISegmentedControl) {
 
         if sender.selectedSegmentIndex == 0 {
@@ -31,14 +32,12 @@ class ListContainerViewController: UIViewController {
         }
     }
     
+    // Function to swipe through the list
     func cycleFromViewController(oldViewController: UIViewController, toViewController newViewController: UIViewController) {
         oldViewController.willMoveToParentViewController(nil)
         self.addChildViewController(newViewController)
         self.addSubview(newViewController.view, toView:self.containerView!)
-        // TODO: Set the starting state of your constraints here
         newViewController.view.layoutIfNeeded()
-        
-        // TODO: Set the ending state of your constraints here
         
         UIView.animateWithDuration(0.5, animations: {
             // only need to call layoutIfNeeded here
@@ -51,6 +50,7 @@ class ListContainerViewController: UIViewController {
         })
     }
     
+    // Adds the subviews for the swipe list
     func addSubview(subView:UIView, toView parentView:UIView) {
         parentView.addSubview(subView)
         

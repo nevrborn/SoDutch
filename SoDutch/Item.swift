@@ -34,7 +34,6 @@ class Item: NSObject, NSCoding, MKAnnotation {
         }
     }
     
-    
     init(title: String, itemDescription: String, location: CLLocation) {
         self.itemTitle = title
         self.itemDescription = itemDescription
@@ -43,7 +42,7 @@ class Item: NSObject, NSCoding, MKAnnotation {
         self.itemKey = NSUUID().UUIDString
     }
     
-    // annotation callout opens this mapItem in Maps app
+    // Annotation callout opens this mapItem in Maps app
     func mapItem() -> MKMapItem {
         let addressDictionary = [String(CNPostalAddressStreetKey): self.itemTitle]
         let placemark = MKPlacemark(coordinate: coordinate, addressDictionary: addressDictionary)
@@ -54,6 +53,7 @@ class Item: NSObject, NSCoding, MKAnnotation {
         return mapItem
     }
     
+    // Encode all info about the objects
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(itemTitle, forKey: "itemTitle")
         aCoder.encodeObject(itemDescription, forKey: "itemDescription")
@@ -61,11 +61,11 @@ class Item: NSObject, NSCoding, MKAnnotation {
         aCoder.encodeDouble(latitude, forKey: "latitude")
         aCoder.encodeDouble(longitude, forKey: "longitude")
         aCoder.encodeObject(addressString, forKey: "addressString")
-        aCoder.encodeObject(originalImage, forKey: "originalImage")
         aCoder.encodeObject(editedImage, forKey: "editedImage")
         aCoder.encodeObject(itemKey, forKey: "itemKey")
     }
     
+    // Decode all info about the objects
     required init(coder aDecoder: NSCoder) {
         itemTitle = aDecoder.decodeObjectForKey("itemTitle") as! String
         itemDescription = aDecoder.decodeObjectForKey("itemDescription") as! String
@@ -73,7 +73,6 @@ class Item: NSObject, NSCoding, MKAnnotation {
         latitude = aDecoder.decodeDoubleForKey("latitude")
         longitude = aDecoder.decodeDoubleForKey("longitude")
         addressString = aDecoder.decodeObjectForKey("addressString") as? String
-        originalImage = aDecoder.decodeObjectForKey("originalImage") as? UIImage
         editedImage = aDecoder.decodeObjectForKey("editedImage") as? UIImage
         itemKey = aDecoder.decodeObjectForKey("itemKey") as! String
         
