@@ -21,7 +21,6 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     var locationManager: CLLocationManager!
     
     var itemsStore: ItemsStore!
-    var imageStore: ImageStore!
     var newItem: Item!
     
     var originalImageData: NSData!
