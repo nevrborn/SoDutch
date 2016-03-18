@@ -31,7 +31,6 @@ class ItemsStore: NSObject, UIPageViewControllerDataSource {
     func addItem(newTitle: String, newDescription: String, newLocation: CLLocation) -> Item {
         
         let newItem = Item(title: newTitle, itemDescription: newDescription, location: newLocation)
-        
         allItems.append(newItem)
         
         return newItem
@@ -39,7 +38,6 @@ class ItemsStore: NSObject, UIPageViewControllerDataSource {
     
     // Saves the changes made to the allItems[] array
     func saveChanges() -> Bool {
-        print("Saving items to: \(itemArchiveURL.path!)")
         return NSKeyedArchiver.archiveRootObject(allItems, toFile: itemArchiveURL.path!)
     }
     

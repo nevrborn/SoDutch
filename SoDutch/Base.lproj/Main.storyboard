@@ -284,7 +284,7 @@
                                         </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7AP-nc-3AB">
-                                        <rect key="frame" x="125" y="197" width="50" height="15"/>
+                                        <rect key="frame" x="125" y="205" width="50" height="15"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -301,7 +301,7 @@
                                     <constraint firstItem="99t-Q8-95M" firstAttribute="leading" secondItem="7AP-nc-3AB" secondAttribute="trailing" constant="-61" id="2JR-Zb-zMQ"/>
                                     <constraint firstAttribute="trailing" secondItem="yEd-tf-IFX" secondAttribute="trailing" constant="8" id="AaG-Yy-0qu"/>
                                     <constraint firstItem="99t-Q8-95M" firstAttribute="centerY" secondItem="7AP-nc-3AB" secondAttribute="centerY" constant="22" id="Lsf-ZN-osf"/>
-                                    <constraint firstAttribute="bottom" secondItem="7AP-nc-3AB" secondAttribute="bottom" constant="30" id="NDX-id-vQV"/>
+                                    <constraint firstAttribute="bottom" secondItem="7AP-nc-3AB" secondAttribute="bottom" constant="22" id="NDX-id-vQV"/>
                                     <constraint firstAttribute="bottom" secondItem="yEd-tf-IFX" secondAttribute="bottom" id="QXK-EU-fK1"/>
                                     <constraint firstItem="99t-Q8-95M" firstAttribute="centerX" secondItem="JUp-FY-5jt" secondAttribute="centerX" id="YEw-zq-ulA"/>
                                     <constraint firstItem="yEd-tf-IFX" firstAttribute="leading" secondItem="JUp-FY-5jt" secondAttribute="leading" constant="8" id="f0z-yT-cZe"/>
