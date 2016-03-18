@@ -14,19 +14,20 @@ class ItemViewController: UIViewController, UITableViewDelegate, UITableViewData
     var fromMap: Bool = false
     
     var itemsStore = ItemsStore()
-    var imageStore = ImageStore()
     
     @IBOutlet var tableView: UITableView!
     
-    
+    // Sets the number of sections
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
     
+    // Sets the number of rows in section
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return itemsStore.allItems.count
     }
     
+    // Populates the table
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("ItemCell", forIndexPath: indexPath) as! ItemCell
         
@@ -39,12 +40,10 @@ class ItemViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.itemDescription.text = itemDescription
         cell.itemImage.image = itemImage
         
-        
-        
         return cell
-        
     }
     
+    // Segue to DetailView which passes the item
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if segue.identifier == "ShowItemDetail" {
@@ -55,23 +54,21 @@ class ItemViewController: UIViewController, UITableViewDelegate, UITableViewData
                 let detailViewController = segue.destinationViewController as! DetailViewController
                 
                 detailViewController.item = item
-                
             }
         }
-        
     }
     
     
     override func viewDidLoad() {
+        // Reverses the itemStore.allItems so the newest comes first
         itemsStore.allItems = itemsStore.allItems.reverse()
+        
         tableView.reloadData()
         super.viewDidLoad()
-        
     }
     
     override func viewWillAppear(animated: Bool) {
         tableView.reloadData()
-        
     }
     
     

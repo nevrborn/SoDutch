@@ -43,17 +43,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     var hideDetailView = false
     
     var itemsStore: ItemsStore!
-    var imageStore: ImageStore!
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet var mapSegment: UISegmentedControl!
     
-    // If pressing "ARROW" then the location will be zoomed in to users location
-    @IBAction func goToCurrentLocation(sender: UIButton) {
-        self.mapView.showsUserLocation = true
-        mapView.setRegion(MKCoordinateRegion(center: mapView.userLocation.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)), animated: true)
-    }
-    
+    // Press "Show Route" button will show a route overlay on the current map
     @IBAction func getRouteToItem(sender: UIButton) {
         
         routeToItem("inApp")
@@ -64,17 +58,29 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         showDetailButton.setTitle("Show Details", forState: .Normal)
         showDetailButton.setTitleColor(UIColor.init(red: 0.0, green: 122/255, blue: 1.0, alpha: 1), forState: .Normal)
-        
     }
     
+    // If pressing "ARROW" then the location will be zoomed in to users location
+    @IBAction func goToCurrentLocation(sender: UIButton) {
+        self.mapView.showsUserLocation = true
+        mapView.setRegion(MKCoordinateRegion(center: mapView.userLocation.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)), animated: true)
+    }
     
+    // Segmented controll to display Standard, Hybrid or Satelite
+    @IBAction func mapTypeSegment(sender: UISegmentedControl) {
+        let segmentedControl = sender
+        segmentedControl.addTarget(self, action: "mapTypeChanged:", forControlEvents: .ValueChanged)
+    }
+    
+    // Press "Show in Apple Maps" button will open up Apple Maps with directions
     @IBAction func openInAppleMaps(sender: UIButton) {
-        
         routeToItem("appleMap")
     }
     
+    // Press "Show Details" will add a view over the map that shows the details
     @IBAction func showDetailView(sender: UIButton) {
         
+        // When the "Show Details" button is pressed
         if showDetailButton.highlighted == true && hideDetailView == false {
             var i = 0
             
@@ -102,7 +108,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                 }
                 i++
             }
-            
+        // When the "Hide Details" button is presses
         } else if hideDetailView == true {
             detailView.hidden = true
             imagePlaceholderView.hidden = false
@@ -114,21 +120,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
     }
     
+    // Function that calculates distance from user location to annotation
     func distanceToItem(itemCoordinate: CLLocation) -> Double {
-
         let currentLocation = mapView.userLocation.location
         let distance: CLLocationDistance = currentLocation!.distanceFromLocation(itemCoordinate)
         
         return distance
-    }
-    
-    
-    // Segmented controll to display Standard, Hybrid or Satelite
-    @IBAction func mapTypeSegment(sender: UISegmentedControl) {
-        
-        let segmentedControl = sender
-        segmentedControl.addTarget(self, action: "mapTypeChanged:", forControlEvents: .ValueChanged)
-        
     }
     
     // Segmented control for map
@@ -145,6 +142,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
     }
     
+    // Functions that will either show a route overlay on the map or open up AppleMaps for direction
     func routeToItem(mapOption: String) {
         
         if routeOverlay != nil {
@@ -168,7 +166,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             if error == nil {
                 
                 if mapOption == "inApp" {
-                    /* Display the directions in the SoDutch App */
+                    // Display the directions with a route overlay
                     for route in response!.routes {
                         
                         self.mapView.addOverlay(route.polyline,
@@ -177,7 +175,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                         self.routeOverlay = route.polyline
                     }
                 } else if mapOption == "appleMap" {
-                    /* Display the directions on the Maps app */
+                    // Display the directions in Apple Maps
                     let launchOptions = [
                         MKLaunchOptionsDirectionsModeKey:
                         MKLaunchOptionsDirectionsModeWalking]
@@ -186,21 +184,17 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                         [response!.source, response!.destination],
                         launchOptions: launchOptions)
                 }
-                
             } else {
-                
                 let alertController = UIAlertController(title: "Not possible to find directions for this item", message: "Please select a different pin", preferredStyle: .Alert)
                 
                 let okAction = UIAlertAction(title: "OK", style: .Destructive, handler: nil)
-                
                 alertController.addAction(okAction)
-                
                 self.presentViewController(alertController, animated: true, completion: nil)
             }
         })
-        
     }
     
+    // Function that renders the route overlay
     func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(polyline: overlay as! MKPolyline)
         renderer.strokeColor = UIColor.blueColor()
@@ -209,22 +203,18 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     
     // Function to update the user location
-    func mapView(mapView: MKMapView, didUpdateUserLocation
-        userLocation: MKUserLocation) {
-            
+    func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
+            // Will only update the user location on the first time the map is opened
             if firstLoadOfMap == true {
                 mapView.setRegion(MKCoordinateRegion(center: mapView.userLocation.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)), animated: true)
                 firstLoadOfMap = false
             }
-            
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Set the delegate as self
+
         mapView.delegate = self
-        // Set that it should show the user location
         mapView.showsUserLocation = true
         
         loadInitialData()
@@ -234,7 +224,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         detailView.hidden = true
         linkView.hidden = true
         hideDetailView = false
-        
     }
     
     // Will reload all annotation when the view appears again
@@ -247,6 +236,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         var i = 0
         var selectedAnnotation: MKAnnotation?
         
+        // If "Show in Map" is pressed in the DetailViewController, then the small annotation view is populated for the item
         if comingFromDetailView == true {
             
             while i < annotations.count {

@@ -22,7 +22,6 @@
 		719B61901C91E3F5000C23DB /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719B618F1C91E3F5000C23DB /* PageViewController.swift */; };
 		719B61921C91E59B000C23DB /* PageDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719B61911C91E59B000C23DB /* PageDataViewController.swift */; };
 		719B61B61C972AE3000C23DB /* ListContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719B61B51C972AE3000C23DB /* ListContainerViewController.swift */; };
-		71CD549B1C8EC5A500B09512 /* ImageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CD549A1C8EC5A500B09512 /* ImageStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,7 +42,6 @@
 		719B618F1C91E3F5000C23DB /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		719B61911C91E59B000C23DB /* PageDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageDataViewController.swift; sourceTree = "<group>"; };
 		719B61B51C972AE3000C23DB /* ListContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListContainerViewController.swift; sourceTree = "<group>"; };
-		71CD549A1C8EC5A500B09512 /* ImageStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,7 +80,6 @@
 				71035A991C8C3AE5005F70D7 /* AppDelegate.swift */,
 				71035A9D1C8C3AE5005F70D7 /* Main.storyboard */,
 				713995F01C91653B004DAB47 /* DetailViewController.swift */,
-				71CD549A1C8EC5A500B09512 /* ImageStore.swift */,
 				71794CE71C8F835A006CE8F5 /* ItemViewController.swift */,
 				71035ACD1C8D7779005F70D7 /* MapViewController.swift */,
 				713995EE1C902341004DAB47 /* MapAnnotationsExtension.swift */,
@@ -182,7 +179,6 @@
 				71794CE81C8F835A006CE8F5 /* ItemViewController.swift in Sources */,
 				719B61901C91E3F5000C23DB /* PageViewController.swift in Sources */,
 				71035AD61C8D9234005F70D7 /* ItemCell.swift in Sources */,
-				71CD549B1C8EC5A500B09512 /* ImageStore.swift in Sources */,
 				71035ACE1C8D7779005F70D7 /* MapViewController.swift in Sources */,
 				713995EF1C902341004DAB47 /* MapAnnotationsExtension.swift in Sources */,
 				71035ADE1C8DC883005F70D7 /* AddItemViewController.swift in Sources */,

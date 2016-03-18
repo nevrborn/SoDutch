@@ -32,6 +32,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     // Actions that happen when user presses DONE button
     @IBAction func finishItem(sender: AnyObject) {
         
+        // If image, title or description is NOT filled in, then an alert will show
         if (imageView.image == nil || titleField.text == "" || descriptionField.text == "") {
             
             
@@ -108,13 +109,12 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     // Take a photo and saves both the original and edited photo
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         
+        // if TAKE PHOTO then take photo, edit and save to PNG
         if picker.sourceType == UIImagePickerControllerSourceType.Camera {
             // Get picked image from info dictionary
-            let originalImageInit = info[UIImagePickerControllerOriginalImage] as! UIImage
             let editedImageInit = info[UIImagePickerControllerEditedImage] as! UIImage
             
             // Convert image to PNG
-            originalImageData = UIImagePNGRepresentation(originalImageInit)
             editedImageData = UIImagePNGRepresentation(editedImageInit)
             
             // Display the edited (small) image on screen
@@ -125,16 +125,14 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
             // Get adresseLabel as current location
             getLocationAddress(currentLocation)
             
-            
+        // if PHOTO LIBRARY, then find metadata about photo and set location
         } else if picker.sourceType == UIImagePickerControllerSourceType.PhotoLibrary {
             
             var url: [NSURL] = []
             
-            let originalImageInit = info[UIImagePickerControllerOriginalImage] as! UIImage
             let editedImageInit = info[UIImagePickerControllerEditedImage] as! UIImage
             
             // Convert image to PNG
-            originalImageData = UIImagePNGRepresentation(originalImageInit)
             editedImageData = UIImagePNGRepresentation(editedImageInit)
             
             let imageURL: NSURL = info[UIImagePickerControllerReferenceURL] as! NSURL
@@ -155,6 +153,8 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
 
                 getLocationAddress(imageLocation)
                 
+                
+            // If a ocation is not associated with the picture, then show alert and choose currentLocation
             } else if imageMetaData.location == nil {
                 
                 let alertController = UIAlertController(title: "No location associated with picture", message: "Will set location to current location", preferredStyle: .Alert)
@@ -174,7 +174,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         
     }
     
-    // Convert the CLLocation coordinates to an addresse
+    // Convert the CLLocation coordinates to an addresse string
     func getLocationAddress(location: CLLocation) -> String {
         let geocoder = CLGeocoder()
         var placemark: CLPlacemark!

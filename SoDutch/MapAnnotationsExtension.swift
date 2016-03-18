@@ -26,6 +26,7 @@ extension MapViewController {
                 
                 annotation.coordinate = coordinate
                 annotation.title = title
+                // Use the subtitle to function as the 
                 annotation.subtitle = itemsKey
                 
                 annotations.append(annotation)
@@ -93,7 +94,7 @@ extension MapViewController {
                     imageView.image = item.editedImage
                     titleLabel.text = item.itemTitle
                     
-                    var distanceItem = Int(distanceToItem(coordinate))
+                    var distanceItem = distanceToItem(coordinate)
                     
                     if distanceItem < 1000 {
                         distanceLabel.text = String(distanceItem)

@@ -18,7 +18,6 @@ class DetailViewController: UIViewController {
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var distanceLabel: UILabel!
     
-    
     var item: Item! {
         didSet {
             navigationItem.title = item.itemTitle
@@ -28,7 +27,7 @@ class DetailViewController: UIViewController {
     var itemsStore: ItemsStore!
     let currentLocation = CLLocation!()
     
-
+    // Press button and it takes you to the map
     @IBAction func goToMap(sender: UIButton) {
         
         let tabBarController = self.tabBarController
@@ -41,6 +40,7 @@ class DetailViewController: UIViewController {
         tabBarController?.selectedIndex = 0
     }
     
+    // Press button and it takes you to Apple Maps and shows the route
     @IBAction func goToAppleMap(sender: UIButton) {
         let tabBarController = self.tabBarController
         let mapDetailViewController = tabBarController?.childViewControllers[0] as! MapViewController
@@ -51,7 +51,7 @@ class DetailViewController: UIViewController {
         mapDetailViewController.routeToItem("appleMap")
     }
     
-    
+    // Sets the labels when opening
     func setLabels() {
         
         let itemImage = item.editedImage
