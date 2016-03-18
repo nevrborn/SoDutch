@@ -19,8 +19,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5bX-pY-Mmj">
-                                <rect key="frame" x="0.0" y="267" width="600" height="284"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CameraPlaceHolderImage" translatesAutoresizingMaskIntoConstraints="NO" id="5bX-pY-Mmj">
+                                <rect key="frame" x="20" y="267" width="560" height="284"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="284" id="E1y-Vk-vUB"/>
@@ -92,8 +92,8 @@
                             <constraint firstItem="giP-RA-MRm" firstAttribute="leading" secondItem="AFH-cU-qYP" secondAttribute="leading" id="0Eu-qv-qzf"/>
                             <constraint firstItem="RQz-Wm-fwQ" firstAttribute="trailing" secondItem="UrE-XQ-OA3" secondAttribute="trailingMargin" id="0uP-4S-C4e"/>
                             <constraint firstItem="RQz-Wm-fwQ" firstAttribute="baseline" secondItem="o9o-v9-H2T" secondAttribute="baseline" id="1wA-mN-Ya9"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="5bX-pY-Mmj" secondAttribute="trailing" constant="-20" id="4iN-fU-iMS"/>
-                            <constraint firstItem="5bX-pY-Mmj" firstAttribute="leading" secondItem="UrE-XQ-OA3" secondAttribute="leading" id="59o-Io-poe"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="5bX-pY-Mmj" secondAttribute="trailing" id="4iN-fU-iMS"/>
+                            <constraint firstItem="5bX-pY-Mmj" firstAttribute="leading" secondItem="UrE-XQ-OA3" secondAttribute="leading" constant="20" id="59o-Io-poe"/>
                             <constraint firstItem="AFH-cU-qYP" firstAttribute="trailing" secondItem="RQz-Wm-fwQ" secondAttribute="trailing" id="9hZ-zv-I6u"/>
                             <constraint firstItem="3DE-mI-Yju" firstAttribute="centerY" secondItem="AFH-cU-qYP" secondAttribute="centerY" id="CIE-1k-zzw"/>
                             <constraint firstAttribute="trailing" secondItem="gYA-tm-cv7" secondAttribute="trailing" id="DUy-sk-yPw"/>
@@ -113,7 +113,7 @@
                             <constraint firstItem="gYA-tm-cv7" firstAttribute="top" secondItem="rWY-iJ-HvL" secondAttribute="bottom" id="sWZ-tR-Q0Q"/>
                             <constraint firstItem="5bX-pY-Mmj" firstAttribute="bottom" secondItem="uJD-LW-stU" secondAttribute="top" id="taJ-SR-P0h"/>
                             <constraint firstItem="RQz-Wm-fwQ" firstAttribute="leading" secondItem="o9o-v9-H2T" secondAttribute="trailing" constant="52" id="unh-5w-qMw"/>
-                            <constraint firstItem="5bX-pY-Mmj" firstAttribute="leading" secondItem="UrE-XQ-OA3" secondAttribute="leadingMargin" constant="-20" id="yqr-uQ-bod"/>
+                            <constraint firstItem="5bX-pY-Mmj" firstAttribute="leading" secondItem="UrE-XQ-OA3" secondAttribute="leadingMargin" id="yqr-uQ-bod"/>
                             <constraint firstItem="TBt-K6-lcx" firstAttribute="leading" secondItem="3DE-mI-Yju" secondAttribute="leading" id="yu8-c7-Sse"/>
                         </constraints>
                         <variation key="default">
@@ -1061,6 +1061,7 @@
     </scenes>
     <resources>
         <image name="Camera icon" width="37" height="28"/>
+        <image name="CameraPlaceHolderImage" width="414" height="301"/>
         <image name="List icon" width="27" height="28"/>
         <image name="Map icon" width="37" height="28"/>
         <image name="currentLocationButton" width="40" height="40"/>

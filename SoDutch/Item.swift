@@ -17,7 +17,6 @@ class Item: NSObject, NSCoding, MKAnnotation {
     var itemTitle: String
     var itemDescription: String
     var dateCreated: String = ""
-    var originalImage: UIImage?
     var editedImage: UIImage?
     var longitude: Double
     var latitude: Double

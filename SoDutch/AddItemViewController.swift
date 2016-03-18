@@ -23,7 +23,6 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     var itemsStore: ItemsStore!
     var newItem: Item!
     
-    var originalImageData: NSData!
     var editedImageData: NSData!
     var addressString: String?
     var locationOfPhoto: CLLocation?
@@ -32,7 +31,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBAction func finishItem(sender: AnyObject) {
         
         // If image, title or description is NOT filled in, then an alert will show
-        if (imageView.image == nil || titleField.text == "" || descriptionField.text == "") {
+        if (imageView.image == nil || imageView.image == UIImage(named: "CameraPlaceHolderImage") || titleField.text == "" || descriptionField.text == "") {
             
             
             let alertController = UIAlertController(title: "Missing information", message: "Photo, Title and Description is required to save", preferredStyle: .Alert)
@@ -48,7 +47,6 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
             newItem = itemsStore.addItem(titleField.text!, newDescription: descriptionField.text!, newLocation: locationOfPhoto!)
             
             // Set images directly to the item, NOT to ImageStore
-            newItem.originalImage = UIImage(data: originalImageData)
             newItem.editedImage = UIImage(data: editedImageData)
             newItem.addressString = addresseLabel.text
             newItem.dateCreated = formatADate()
@@ -146,10 +144,9 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
             imageView.image = editedImageInit
             
             if imageMetaData.location != nil {
+                
                 let imageLocation: CLLocation = imageMetaData.location!
-            
                 locationOfPhoto = imageLocation
-
                 getLocationAddress(imageLocation)
                 
                 
@@ -163,6 +160,8 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
                 alertController.addAction(okAction)
                 
                 self.presentViewController(alertController, animated: true, completion: nil)
+                
+                locationOfPhoto = currentLocation
                 
                 getLocationAddress(currentLocation)
             }
