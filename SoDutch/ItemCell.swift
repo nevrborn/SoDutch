@@ -15,5 +15,4 @@ class ItemCell: UITableViewCell {
     @IBOutlet var itemDescription: UILabel!
     @IBOutlet var itemImage: UIImageView!
     
-    
 }

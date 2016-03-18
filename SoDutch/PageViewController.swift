@@ -15,9 +15,9 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate {
     var itemsStore: ItemsStore!
     var item: Item!
     
-    
     override func viewDidLoad() {
         
+        // Sets the functionality of the swipe list
         self.pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
         self.pageViewController!.delegate = self
         
@@ -40,6 +40,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate {
         self.view.gestureRecognizers = self.pageViewController!.gestureRecognizers
     }
     
+    // Sets spine location of the interface
     func pageViewController(pageViewController: UIPageViewController, spineLocationForInterfaceOrientation orientation: UIInterfaceOrientation) -> UIPageViewControllerSpineLocation {
         
         let currentViewController = self.pageViewController!.viewControllers![0]
@@ -50,10 +51,8 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate {
         return .Min
     }
 
-    
     var modelController: ItemsStore {
         // Return the model controller object, creating it if necessary.
-        // In more complex implementations, the model controller may be passed to the view controller.
         if _modelController == nil {
             _modelController = ItemsStore()
         }
