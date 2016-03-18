@@ -95,10 +95,16 @@ extension MapViewController {
                     titleLabel.text = item.itemTitle
                     
                     var distanceItem = distanceToItem(coordinate)
+                   
                     
                     if distanceItem < 1000 {
                         distanceLabel.text = String(distanceItem)
+                        
+                        
                         meterKmLabel.text = "meters away"
+                    
+                    
+                    
                     } else {
                         distanceItem = distanceItem / 1000
                         distanceLabel.text = String(distanceItem)
