@@ -26,6 +26,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     var editedImageData: NSData!
     var addressString: String?
     var locationOfPhoto: CLLocation?
+    var photoTaken = false
     
     // Actions that happen when user presses DONE button
     @IBAction func finishItem(sender: AnyObject) {
@@ -142,6 +143,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
                 getLocationAddress(currentLocation)
             }
         }
+        photoTaken = true
         dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -195,6 +197,23 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         view.addGestureRecognizer(tap)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+       
+        // Sets titleField etc to default values if coming from another view
+        if photoTaken == false {
+            imageView.image = nil
+            titleField.text = ""
+            descriptionField.text = ""
+            imageView.image = UIImage(named: "CameraPlaceHolderImage")
+            addresseLabel.text = "Addresse will come automatically with picture"
+            photoTaken = false
+        }
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        photoTaken = false
     }
     
     // Dismiss keyboard
