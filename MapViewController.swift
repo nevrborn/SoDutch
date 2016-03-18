@@ -101,6 +101,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                     detailDate.text = item.dateCreated
                     detailAdress.text = item.addressString
                     
+                    detailImage.layer.shadowColor = UIColor.blackColor().CGColor
+                    detailImage.layer.shadowOpacity = 1
+                    detailImage.layer.shadowOffset = CGSizeMake(4, 5)
+                    detailImage.layer.shadowRadius = 10
+                    
                     hideDetailView = true
                     
                     i = itemsStore.allItems.count

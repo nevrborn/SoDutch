@@ -12,7 +12,6 @@ import MapKit
 class DetailViewController: UIViewController {
     
     @IBOutlet var imageView: UIImageView!
-    @IBOutlet var titleLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
     @IBOutlet var adressLabel: UILabel!
     @IBOutlet var dateLabel: UILabel!
@@ -28,10 +27,8 @@ class DetailViewController: UIViewController {
     
     // Press button and it takes you to the map
     @IBAction func goToMap(sender: UIButton) {
-        
         let tabBarController = self.tabBarController
         let mapDetailViewController = tabBarController?.childViewControllers[0] as! MapViewController
-        mapDetailViewController.itemTitleFromDetailView = titleLabel.text!
         mapDetailViewController.comingFromDetailView = true
         
         tabBarController?.selectedIndex = 0
@@ -53,7 +50,7 @@ class DetailViewController: UIViewController {
         
         let itemImage = item.editedImage
         
-        titleLabel.text = item.itemTitle
+        //titleLabel.text = item.itemTitle
         descriptionLabel.text = item.itemDescription
         adressLabel.text = item.addressString
         dateLabel.text = item.dateCreated

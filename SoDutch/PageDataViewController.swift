@@ -56,6 +56,11 @@ class PageDataViewController: UIViewController {
         self.titleLabel.text = titleObject
         self.descriptionLabel.text = descriptionObject
         
+        imageView.layer.shadowColor = UIColor.blackColor().CGColor
+        imageView.layer.shadowOpacity = 1
+        imageView.layer.shadowOffset = CGSizeMake(4, 5)
+        imageView.layer.shadowRadius = 10
+        
     }
     
 }
