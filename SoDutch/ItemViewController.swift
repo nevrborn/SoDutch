@@ -63,6 +63,7 @@ class ItemViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     override func viewDidLoad() {
+        itemsStore.allItems = itemsStore.allItems.reverse()
         tableView.reloadData()
         super.viewDidLoad()
         

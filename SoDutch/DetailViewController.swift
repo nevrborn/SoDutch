@@ -18,7 +18,13 @@ class DetailViewController: UIViewController {
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var distanceLabel: UILabel!
     
-    var item: Item!
+    
+    var item: Item! {
+        didSet {
+            navigationItem.title = item.itemTitle
+        }
+    }
+    
     var itemsStore: ItemsStore!
     let currentLocation = CLLocation!()
     
