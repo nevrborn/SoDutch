@@ -115,10 +115,10 @@ extension MapViewController {
     
     // When you deselect the annotation the small view will be hidden
     func mapView(mapView: MKMapView, didDeselectAnnotationView view: MKAnnotationView) {
+        
         annotationDetailView.hidden = true
         imagePlaceholderView.hidden = true
         linkView.hidden = true
-        
     }
     
 }

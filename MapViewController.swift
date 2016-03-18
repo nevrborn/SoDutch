@@ -29,7 +29,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     @IBOutlet var distanceLabel: UILabel!
     @IBOutlet var meterKmLabel: UILabel!
     
-    
     var location: CLLocation!
     var locationManager: CLLocationManager!
     var window: UIWindow!
@@ -150,12 +149,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
         
         let directionRequest = MKDirectionsRequest()
-        
         directionRequest.source = MKMapItem.mapItemForCurrentLocation()
         directionRequest.destination = destination
-        
         directionRequest.requestsAlternateRoutes = true
-        
         directionRequest.transportType = .Walking
         
         let directions = MKDirections(request: directionRequest)
@@ -201,7 +197,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         return renderer
     }
     
-    
     // Function to update the user location
     func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
             // Will only update the user location on the first time the map is opened
@@ -246,7 +241,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                     
                     mapView.selectAnnotation(selectedAnnotation!, animated: true)
                     mapView.setRegion(MKCoordinateRegion(center: region!, span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)), animated: true)
-                    
                     
                     annotationDetailView.hidden = false
                     imagePlaceholderView.hidden = false

@@ -16,7 +16,6 @@ class DetailViewController: UIViewController {
     @IBOutlet var descriptionLabel: UILabel!
     @IBOutlet var adressLabel: UILabel!
     @IBOutlet var dateLabel: UILabel!
-    @IBOutlet var distanceLabel: UILabel!
     
     var item: Item! {
         didSet {
@@ -32,9 +31,7 @@ class DetailViewController: UIViewController {
         
         let tabBarController = self.tabBarController
         let mapDetailViewController = tabBarController?.childViewControllers[0] as! MapViewController
-        
         mapDetailViewController.itemTitleFromDetailView = titleLabel.text!
-        
         mapDetailViewController.comingFromDetailView = true
         
         tabBarController?.selectedIndex = 0
@@ -60,7 +57,6 @@ class DetailViewController: UIViewController {
         descriptionLabel.text = item.itemDescription
         adressLabel.text = item.addressString
         dateLabel.text = item.dateCreated
-        
         imageView.image = itemImage
         
         imageView.layer.shadowColor = UIColor.blackColor().CGColor

@@ -32,18 +32,12 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         // If image, title or description is NOT filled in, then an alert will show
         if (imageView.image == nil || imageView.image == UIImage(named: "CameraPlaceHolderImage") || titleField.text == "" || descriptionField.text == "") {
-            
-            
             let alertController = UIAlertController(title: "Missing information", message: "Photo, Title and Description is required to save", preferredStyle: .Alert)
-            
             let completeAction = UIAlertAction(title: "OK", style: .Destructive, handler: nil)
-            
             alertController.addAction(completeAction)
             
             presentViewController(alertController, animated: true, completion: nil)
-            
         } else {
-            
             newItem = itemsStore.addItem(titleField.text!, newDescription: descriptionField.text!, newLocation: locationOfPhoto!)
             
             // Set images directly to the item, NOT to ImageStore
@@ -76,9 +70,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
             imagePicker.delegate = self
             imagePicker.sourceType = .Camera
             
-            
             self.presentViewController(imagePicker, animated: true, completion: nil)
-            
         })
         
         let libraryAction = UIAlertAction(title: "Get Photo From Library", style: .Default, handler: {(action)-> Void in
@@ -86,7 +78,6 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
             imagePicker.sourceType = .PhotoLibrary
             
             self.presentViewController(imagePicker, animated: true, completion: nil)
-            
         })
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .Destructive, handler: nil)
@@ -94,11 +85,9 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         alertController.addAction(cameraAction)
         alertController.addAction(libraryAction)
         alertController.addAction(cancelAction)
-        
         presentViewController(alertController, animated: true, completion: nil)
         
         imagePicker.delegate = self
-        
         imagePicker.allowsEditing = true
         
         // Place image picker on the screen
@@ -124,22 +113,17 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
             // Get adresseLabel as current location
             getLocationAddress(currentLocation)
             
-        // if PHOTO LIBRARY, then find metadata about photo and set location
+            // if PHOTO LIBRARY, then find metadata about photo and set location
         } else if picker.sourceType == UIImagePickerControllerSourceType.PhotoLibrary {
             
             var url: [NSURL] = []
             
             let editedImageInit = info[UIImagePickerControllerEditedImage] as! UIImage
-            
-            // Convert image to PNG
             editedImageData = UIImagePNGRepresentation(editedImageInit)
             
             let imageURL: NSURL = info[UIImagePickerControllerReferenceURL] as! NSURL
-          
             url.append(imageURL)
-            
             let fetchedImage = PHAsset.fetchAssetsWithALAssetURLs(url, options: nil)
-            
             let imageMetaData: PHAsset = fetchedImage.objectAtIndex(0) as! PHAsset
             
             // Display the edited (small) image on screen
@@ -151,27 +135,14 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
                 locationOfPhoto = imageLocation
                 getLocationAddress(imageLocation)
                 
-                
-            // If a ocation is not associated with the picture, then show alert and choose currentLocation
+                // If a ocation is not associated with the picture, then show alert and choose currentLocation
             } else if imageMetaData.location == nil {
                 
-                let alertController = UIAlertController(title: "No location associated with picture", message: "Will set location to current location", preferredStyle: .Alert)
-                
-                let okAction = UIAlertAction(title: "OK", style: .Destructive, handler: nil)
-                
-                alertController.addAction(okAction)
-                
-                self.presentViewController(alertController, animated: true, completion: nil)
-                
                 locationOfPhoto = currentLocation
-                
                 getLocationAddress(currentLocation)
             }
-            
         }
-        
         dismissViewControllerAnimated(true, completion: nil)
-        
     }
     
     // Convert the CLLocation coordinates to an addresse string
@@ -200,21 +171,20 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
                 
                 // Set adresseLabel as current location
                 self.addresseLabel.text = addresseString
-                
             }
         })
-        
         return addresseString
     }
     
     override func viewDidLoad() {
         
-        
         currentLocation = CLLocation!()
         locationManager = CLLocationManager()
         locationManager.startUpdatingLocation()
-        
         currentLocation = locationManager.location
+        
+        titleField.autocapitalizationType = UITextAutocapitalizationType.Sentences
+        descriptionField.autocapitalizationType = UITextAutocapitalizationType.Sentences
         
         imageView.layer.shadowColor = UIColor.blackColor().CGColor
         imageView.layer.shadowOpacity = 1
@@ -226,26 +196,27 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         view.addGestureRecognizer(tap)
     }
-
+    
+    // Dismiss keyboard
     func dismissKeyboard() {
-        //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
     }
     
+    // Function that dismiss the keyboard when pressing return
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         
         return true
-        
     }
     
+    // Function that formates a date
     func formatADate() -> String {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        let d = NSDate()
-        let s = dateFormatter.stringFromDate(d)
+        let date = NSDate()
+        let dateString = dateFormatter.stringFromDate(date)
         
-        return s
+        return dateString
     }
     
 }

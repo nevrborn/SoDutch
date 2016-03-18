@@ -11,11 +11,11 @@ import MapKit
 
 class ItemViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    @IBOutlet var tableView: UITableView!
+    
     var fromMap: Bool = false
     
     var itemsStore = ItemsStore()
-    
-    @IBOutlet var tableView: UITableView!
     
     // Sets the number of sections
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -57,7 +57,6 @@ class ItemViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
         }
     }
-    
     
     override func viewDidLoad() {
         // Reverses the itemStore.allItems so the newest comes first

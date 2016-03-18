@@ -34,7 +34,6 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate {
         let height = startingViewController.view.frame.height
 
         self.pageViewController!.view.frame = CGRectMake(0, 0, width, height)
-        
         self.pageViewController!.didMoveToParentViewController(self)
         
         self.view.gestureRecognizers = self.pageViewController!.gestureRecognizers
