@@ -18,18 +18,18 @@ class ItemViewController: UIViewController, UITableViewDelegate, UITableViewData
     var itemsStore = ItemsStore()
     
     // Sets the number of sections
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     // Sets the number of rows in section
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return itemsStore.allItems.count
     }
     
     // Populates the table
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("ItemCell", forIndexPath: indexPath) as! ItemCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! ItemCell
         
         let itemTitle = itemsStore.allItems[indexPath.row].itemTitle
         let itemDescription = itemsStore.allItems[indexPath.row].itemDescription
@@ -44,14 +44,14 @@ class ItemViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     // Segue to DetailView which passes the item
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "ShowItemDetail" {
             
             if let row = tableView.indexPathForSelectedRow?.row {
                 
                 let item = itemsStore.allItems[row]
-                let detailViewController = segue.destinationViewController as! DetailViewController
+                let detailViewController = segue.destination as! DetailViewController
                 
                 detailViewController.item = item
             }
@@ -60,13 +60,13 @@ class ItemViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         // Reverses the itemStore.allItems so the newest comes first
-        itemsStore.allItems = itemsStore.allItems.reverse()
+        itemsStore.allItems = itemsStore.allItems.reversed()
         
         tableView.reloadData()
         super.viewDidLoad()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         tableView.reloadInputViews()
         tableView.reloadData()
     }

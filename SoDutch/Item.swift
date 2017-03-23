@@ -38,7 +38,7 @@ class Item: NSObject, NSCoding, MKAnnotation {
         self.itemDescription = itemDescription
         self.latitude = location.coordinate.latitude
         self.longitude = location.coordinate.longitude
-        self.itemKey = NSUUID().UUIDString
+        self.itemKey = UUID().uuidString
     }
     
     // Annotation callout opens this mapItem in Maps app
@@ -53,27 +53,27 @@ class Item: NSObject, NSCoding, MKAnnotation {
     }
     
     // Encode all info about the objects
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(itemTitle, forKey: "itemTitle")
-        aCoder.encodeObject(itemDescription, forKey: "itemDescription")
-        aCoder.encodeObject(dateCreated, forKey: "dateCreated")
-        aCoder.encodeDouble(latitude, forKey: "latitude")
-        aCoder.encodeDouble(longitude, forKey: "longitude")
-        aCoder.encodeObject(addressString, forKey: "addressString")
-        aCoder.encodeObject(editedImage, forKey: "editedImage")
-        aCoder.encodeObject(itemKey, forKey: "itemKey")
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(itemTitle, forKey: "itemTitle")
+        aCoder.encode(itemDescription, forKey: "itemDescription")
+        aCoder.encode(dateCreated, forKey: "dateCreated")
+        aCoder.encode(latitude, forKey: "latitude")
+        aCoder.encode(longitude, forKey: "longitude")
+        aCoder.encode(addressString, forKey: "addressString")
+        aCoder.encode(editedImage, forKey: "editedImage")
+        aCoder.encode(itemKey, forKey: "itemKey")
     }
     
     // Decode all info about the objects
     required init(coder aDecoder: NSCoder) {
-        itemTitle = aDecoder.decodeObjectForKey("itemTitle") as! String
-        itemDescription = aDecoder.decodeObjectForKey("itemDescription") as! String
-        dateCreated = aDecoder.decodeObjectForKey("dateCreated") as! String
-        latitude = aDecoder.decodeDoubleForKey("latitude")
-        longitude = aDecoder.decodeDoubleForKey("longitude")
-        addressString = aDecoder.decodeObjectForKey("addressString") as? String
-        editedImage = aDecoder.decodeObjectForKey("editedImage") as? UIImage
-        itemKey = aDecoder.decodeObjectForKey("itemKey") as! String
+        itemTitle = aDecoder.decodeObject(forKey: "itemTitle") as! String
+        itemDescription = aDecoder.decodeObject(forKey: "itemDescription") as! String
+        dateCreated = aDecoder.decodeObject(forKey: "dateCreated") as! String
+        latitude = aDecoder.decodeDouble(forKey: "latitude")
+        longitude = aDecoder.decodeDouble(forKey: "longitude")
+        addressString = aDecoder.decodeObject(forKey: "addressString") as? String
+        editedImage = aDecoder.decodeObject(forKey: "editedImage") as? UIImage
+        itemKey = aDecoder.decodeObject(forKey: "itemKey") as! String
         
         super.init()
     }

@@ -36,10 +36,10 @@ extension MapViewController {
     }
     
     // Edits the pin configuration
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
         let reuseIdentifier = "pin"
-        var pin = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseIdentifier)
+        var pin = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
         
         if annotation.coordinate.latitude != mapView.userLocation.coordinate.latitude && annotation.coordinate.longitude != mapView.userLocation.coordinate.longitude {
             
@@ -53,7 +53,7 @@ extension MapViewController {
     }
     
     // When info button is tapped on pin, go to ItemViewController
-    func mapView(mapView: MKMapView, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+    func mapView(_ mapView: MKMapView, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         
         if control == annotationView.rightCalloutAccessoryView {
             tabBarController?.selectedIndex = 2
@@ -61,10 +61,10 @@ extension MapViewController {
     }
     
     // WHen an annotation is selected a small view will appear with photo and title of annotation
-    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         
         if routeOverlay != nil {
-            self.mapView.removeOverlay(routeOverlay!)
+            self.mapView.remove(routeOverlay!)
         }
         
         var i = 0
@@ -74,16 +74,16 @@ extension MapViewController {
         if view.annotation?.coordinate.latitude != mapView.userLocation.coordinate.latitude && view.annotation?.coordinate.longitude != mapView.userLocation.coordinate.longitude {
             
             if itemKeyStringWrapped != nil {
-                itemKeyString = (itemKeyStringWrapped!?.uppercaseString)!
+                itemKeyString = (itemKeyStringWrapped!?.uppercased())!
             }
             
             while i < itemsStore.allItems.count {
                 
                 if itemKeyString == itemsStore.allItems[i].itemKey {
                     let item = itemsStore.allItems[i]
-                    annotationDetailView.hidden = false
-                    imagePlaceholderView.hidden = false
-                    linkView.hidden = false
+                    annotationDetailView.isHidden = false
+                    imagePlaceholderView.isHidden = false
+                    linkView.isHidden = false
                     let coordinate = CLLocation(latitude: item.latitude, longitude: item.longitude)
                     imageView.image = item.editedImage
                     titleLabel.text = item.itemTitle
@@ -103,22 +103,22 @@ extension MapViewController {
                     let destinationPlacemark = MKPlacemark(coordinate: CLLocationCoordinate2DMake(item.latitude, item.longitude), addressDictionary: nil)
                     destination = MKMapItem(placemark: destinationPlacemark)
                     
-                    mapView.setCenterCoordinate((view.annotation?.coordinate)!, animated: true)
+                    mapView.setCenter((view.annotation?.coordinate)!, animated: true)
                     
                     i = itemsStore.allItems.count
                 } else {
-                    i++
+                    i += 1
                 }
             }
         }
     }
     
     // When you deselect the annotation the small view will be hidden
-    func mapView(mapView: MKMapView, didDeselectAnnotationView view: MKAnnotationView) {
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
         
-        annotationDetailView.hidden = true
-        imagePlaceholderView.hidden = true
-        linkView.hidden = true
+        annotationDetailView.isHidden = true
+        imagePlaceholderView.isHidden = true
+        linkView.isHidden = true
     }
     
 }

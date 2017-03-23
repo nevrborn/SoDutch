@@ -24,7 +24,7 @@ class PageDataViewController: UIViewController {
     var item: Item!
     
     // Shows item in map
-    @IBAction func showInMap(sender: UIButton) {
+    @IBAction func showInMap(_ sender: UIButton) {
         let tabBarController = self.tabBarController
         let mapDetailViewController = tabBarController?.childViewControllers[0] as! MapViewController
         
@@ -36,7 +36,7 @@ class PageDataViewController: UIViewController {
     }
     
     // Opens up Apple Maps and give directions
-    @IBAction func showInAppleMaps(sender: UIButton) {
+    @IBAction func showInAppleMaps(_ sender: UIButton) {
         let tabBarController = self.tabBarController
         let mapDetailViewController = tabBarController?.childViewControllers[0] as! MapViewController
         
@@ -50,15 +50,15 @@ class PageDataViewController: UIViewController {
         super.viewDidLoad()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.imageView.image = imageObject
         self.titleLabel.text = titleObject
         self.descriptionLabel.text = descriptionObject
         
-        imageView.layer.shadowColor = UIColor.blackColor().CGColor
+        imageView.layer.shadowColor = UIColor.black.cgColor
         imageView.layer.shadowOpacity = 1
-        imageView.layer.shadowOffset = CGSizeMake(4, 5)
+        imageView.layer.shadowOffset = CGSize(width: 4, height: 5)
         imageView.layer.shadowRadius = 10
         
     }

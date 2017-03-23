@@ -23,10 +23,10 @@ class DetailViewController: UIViewController {
     }
     
     var itemsStore: ItemsStore!
-    let currentLocation = CLLocation!()
+    let currentLocation = CLLocationManager()
     
     // Press button and it takes you to the map
-    @IBAction func goToMap(sender: UIButton) {
+    @IBAction func goToMap(_ sender: UIButton) {
         let tabBarController = self.tabBarController
         let mapDetailViewController = tabBarController?.childViewControllers[0] as! MapViewController
         mapDetailViewController.comingFromDetailView = true
@@ -35,7 +35,7 @@ class DetailViewController: UIViewController {
     }
     
     // Press button and it takes you to Apple Maps and shows the route
-    @IBAction func goToAppleMap(sender: UIButton) {
+    @IBAction func goToAppleMap(_ sender: UIButton) {
         let tabBarController = self.tabBarController
         let mapDetailViewController = tabBarController?.childViewControllers[0] as! MapViewController
         
@@ -56,9 +56,9 @@ class DetailViewController: UIViewController {
         dateLabel.text = item.dateCreated
         imageView.image = itemImage
         
-        imageView.layer.shadowColor = UIColor.blackColor().CGColor
+        imageView.layer.shadowColor = UIColor.black.cgColor
         imageView.layer.shadowOpacity = 1
-        imageView.layer.shadowOffset = CGSizeMake(4, 5)
+        imageView.layer.shadowOffset = CGSize(width: 4, height: 5)
         imageView.layer.shadowRadius = 10
     }
     

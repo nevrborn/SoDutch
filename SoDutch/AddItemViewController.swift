@@ -23,28 +23,35 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     var itemsStore: ItemsStore!
     var newItem: Item!
     
-    var editedImageData: NSData!
+    var editedImageData: Data!
     var addressString: String?
     var locationOfPhoto: CLLocation?
     var photoTaken = false
+    var dateOfOldPhoto: Date?
     
     // Actions that happen when user presses DONE button
-    @IBAction func finishItem(sender: AnyObject) {
+    @IBAction func finishItem(_ sender: AnyObject) {
         
         // If image, title or description is NOT filled in, then an alert will show
         if (imageView.image == nil || imageView.image == UIImage(named: "CameraPlaceHolderImage") || titleField.text == "" || descriptionField.text == "") {
-            let alertController = UIAlertController(title: "Missing information", message: "Photo, Title and Description is required to save", preferredStyle: .Alert)
-            let completeAction = UIAlertAction(title: "OK", style: .Destructive, handler: nil)
+            let alertController = UIAlertController(title: "Missing information", message: "Photo, Title and Description is required to save", preferredStyle: .alert)
+            let completeAction = UIAlertAction(title: "OK", style: .destructive, handler: nil)
             alertController.addAction(completeAction)
             
-            presentViewController(alertController, animated: true, completion: nil)
+            present(alertController, animated: true, completion: nil)
         } else {
             newItem = itemsStore.addItem(titleField.text!, newDescription: descriptionField.text!, newLocation: locationOfPhoto!)
             
             // Set images directly to the item, NOT to ImageStore
             newItem.editedImage = UIImage(data: editedImageData)
             newItem.addressString = addresseLabel.text
-            newItem.dateCreated = formatADate()
+            
+            if dateOfOldPhoto != nil {
+                newItem.dateCreated = formatADate(dateOfOldPhoto!)
+                dateOfOldPhoto = nil
+            } else {
+                newItem.dateCreated = formatADate(Date())
+            }
             
             itemsStore.saveChanges()
             
@@ -60,46 +67,46 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     // Opens up the camera to take a picture
-    @IBAction func takePicture(sender: UIBarButtonItem) {
+    @IBAction func takePicture(_ sender: UIBarButtonItem) {
         
         let imagePicker = UIImagePickerController()
-        
+        imagePicker.sourceType = .camera
         // Asks the user to either Take a Photo or to choose one from the Photo Library
-        let alertController = UIAlertController(title: "Add Photo", message: "Choose from Camera or from PhotoLibrary?", preferredStyle: .Alert)
+        let alertController = UIAlertController(title: "Add Photo", message: "Choose from Camera or from PhotoLibrary?", preferredStyle: .alert)
         
-        let cameraAction = UIAlertAction(title: "Take Photo", style: .Default, handler: {(action)-> Void in
+        let cameraAction = UIAlertAction(title: "Take Photo", style: .default, handler: {(action)-> Void in
             imagePicker.delegate = self
-            imagePicker.sourceType = .Camera
+            imagePicker.sourceType = .camera
             
-            self.presentViewController(imagePicker, animated: true, completion: nil)
+            self.present(imagePicker, animated: true, completion: nil)
         })
         
-        let libraryAction = UIAlertAction(title: "Get Photo From Library", style: .Default, handler: {(action)-> Void in
+        let libraryAction = UIAlertAction(title: "Get Photo From Library", style: .default, handler: {(action)-> Void in
             imagePicker.delegate = self
-            imagePicker.sourceType = .PhotoLibrary
+            imagePicker.sourceType = .photoLibrary
             
-            self.presentViewController(imagePicker, animated: true, completion: nil)
+            self.present(imagePicker, animated: true, completion: nil)
         })
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Destructive, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
         
         alertController.addAction(cameraAction)
         alertController.addAction(libraryAction)
         alertController.addAction(cancelAction)
-        presentViewController(alertController, animated: true, completion: nil)
+        present(alertController, animated: true, completion: nil)
         
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
         
         // Place image picker on the screen
-        presentViewController(imagePicker, animated: true, completion: nil)
+        present(imagePicker, animated: true, completion: nil)
     }
     
     // Take a photo and saves both the original and edited photo
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
-        // if TAKE PHOTO then take photo, edit and save to PNG
-        if picker.sourceType == UIImagePickerControllerSourceType.Camera {
+        // If TAKE PHOTO then take photo, edit and save to PNG
+        if picker.sourceType == UIImagePickerControllerSourceType.camera {
             // Get picked image from info dictionary
             let editedImageInit = info[UIImagePickerControllerEditedImage] as! UIImage
             
@@ -114,41 +121,47 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
             // Get adresseLabel as current location
             getLocationAddress(currentLocation)
             
-            // if PHOTO LIBRARY, then find metadata about photo and set location
-        } else if picker.sourceType == UIImagePickerControllerSourceType.PhotoLibrary {
+            // If picking image from PHOTO LIBRARY, then find metadata about photo and set location
+        } else if picker.sourceType == UIImagePickerControllerSourceType.photoLibrary {
             
-            var url: [NSURL] = []
+            var url: [URL] = []
             
+            // Get the edited image - and convert it to PNG
             let editedImageInit = info[UIImagePickerControllerEditedImage] as! UIImage
             editedImageData = UIImagePNGRepresentation(editedImageInit)
             
-            let imageURL: NSURL = info[UIImagePickerControllerReferenceURL] as! NSURL
+            // Get the image URL from the image
+            let imageURL: URL = info[UIImagePickerControllerReferenceURL] as! URL
             url.append(imageURL)
-            let fetchedImage = PHAsset.fetchAssetsWithALAssetURLs(url, options: nil)
-            let imageMetaData: PHAsset = fetchedImage.objectAtIndex(0) as! PHAsset
             
-            // Display the edited (small) image on screen
-            imageView.image = editedImageInit
+            // Fetch the image in order to retrieve information
+            let fetchedImage = PHAsset.fetchAssets(withALAssetURLs: url, options: nil)
+            let imageMetaData: PHAsset = fetchedImage.object(at: 0) 
             
             if imageMetaData.location != nil {
                 
                 let imageLocation: CLLocation = imageMetaData.location!
+                let imageDateTaken: Date = imageMetaData.modificationDate!
+                dateOfOldPhoto = imageDateTaken
                 locationOfPhoto = imageLocation
                 getLocationAddress(imageLocation)
                 
-                // If a ocation is not associated with the picture, then show alert and choose currentLocation
+                // If a location is not associated with the picture, then show alert and choose currentLocation
             } else if imageMetaData.location == nil {
                 
                 locationOfPhoto = currentLocation
                 getLocationAddress(currentLocation)
             }
+            
+            // Display the edited (small) image on screen
+            imageView.image = editedImageInit
         }
         photoTaken = true
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     // Convert the CLLocation coordinates to an addresse string
-    func getLocationAddress(location: CLLocation) -> String {
+    func getLocationAddress(_ location: CLLocation) -> String {
         let geocoder = CLGeocoder()
         var placemark: CLPlacemark!
         var addresseString: String = ""
@@ -180,26 +193,26 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     override func viewDidLoad() {
         
-        currentLocation = CLLocation!()
+        //currentLocation = CLLocation.CLLocation
         locationManager = CLLocationManager()
         locationManager.startUpdatingLocation()
         currentLocation = locationManager.location
         
-        titleField.autocapitalizationType = UITextAutocapitalizationType.Sentences
-        descriptionField.autocapitalizationType = UITextAutocapitalizationType.Sentences
+        titleField.autocapitalizationType = UITextAutocapitalizationType.sentences
+        descriptionField.autocapitalizationType = UITextAutocapitalizationType.sentences
         
-        imageView.layer.shadowColor = UIColor.blackColor().CGColor
+        imageView.layer.shadowColor = UIColor.black.cgColor
         imageView.layer.shadowOpacity = 1
-        imageView.layer.shadowOffset = CGSizeMake(4, 5)
+        imageView.layer.shadowOffset = CGSize(width: 4, height: 5)
         imageView.layer.shadowRadius = 10
         
         addresseLabel.text = "Addresse will come automatically with picture"
         
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(AddItemViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
        
         // Sets titleField etc to default values if coming from another view
         if photoTaken == false {
@@ -212,7 +225,7 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         photoTaken = false
     }
     
@@ -222,18 +235,17 @@ class AddItemViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     // Function that dismiss the keyboard when pressing return
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         
         return true
     }
     
     // Function that formates a date
-    func formatADate() -> String {
-        let dateFormatter = NSDateFormatter()
+    func formatADate(_ date: Date) -> String {
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        let date = NSDate()
-        let dateString = dateFormatter.stringFromDate(date)
+        let dateString = dateFormatter.string(from: date)
         
         return dateString
     }

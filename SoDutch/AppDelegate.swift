@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     let itemsStore = ItemsStore()
     
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -36,13 +36,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let viewControllerListContainer = tabController.viewControllers![2].childViewControllers[0] as! ListContainerViewController
         viewControllerListContainer.itemsStore = itemsStore
         
-        let viewControllerList = storyboard.instantiateViewControllerWithIdentifier("ItemViewController") as! ItemViewController
+        let viewControllerList = storyboard.instantiateViewController(withIdentifier: "ItemViewController") as! ItemViewController
         viewControllerList.itemsStore = itemsStore
         
-        let viewControllerPage = storyboard.instantiateViewControllerWithIdentifier("PageViewController") as! PageViewController
+        let viewControllerPage = storyboard.instantiateViewController(withIdentifier: "PageViewController") as! PageViewController
         viewControllerPage.itemsStore = itemsStore
         
-        let viewControllerPageData = storyboard.instantiateViewControllerWithIdentifier("PageDataViewController") as! PageDataViewController
+        let viewControllerPageData = storyboard.instantiateViewController(withIdentifier: "PageDataViewController") as! PageDataViewController
         viewControllerPageData.itemsStore = itemsStore
         
         return true

@@ -17,15 +17,15 @@ class ListContainerViewController: UIViewController {
     var itemsStore: ItemsStore!
     
     // Segmented button to switch between List and Swipe view
-    @IBAction func switchView(sender: UISegmentedControl) {
+    @IBAction func switchView(_ sender: UISegmentedControl) {
 
         if sender.selectedSegmentIndex == 0 {
-            let newViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ItemViewController")
+            let newViewController = self.storyboard?.instantiateViewController(withIdentifier: "ItemViewController")
             newViewController!.view.translatesAutoresizingMaskIntoConstraints = false
             self.cycleFromViewController(self.currentViewController!, toViewController: newViewController!)
             self.currentViewController = newViewController
         } else {
-            let newViewController = self.storyboard?.instantiateViewControllerWithIdentifier("PageViewController")
+            let newViewController = self.storyboard?.instantiateViewController(withIdentifier: "PageViewController")
             newViewController!.view.translatesAutoresizingMaskIntoConstraints = false
             self.cycleFromViewController(self.currentViewController!, toViewController: newViewController!)
             self.currentViewController = newViewController
@@ -33,37 +33,37 @@ class ListContainerViewController: UIViewController {
     }
     
     // Function to swipe through the list
-    func cycleFromViewController(oldViewController: UIViewController, toViewController newViewController: UIViewController) {
-        oldViewController.willMoveToParentViewController(nil)
+    func cycleFromViewController(_ oldViewController: UIViewController, toViewController newViewController: UIViewController) {
+        oldViewController.willMove(toParentViewController: nil)
         self.addChildViewController(newViewController)
         self.addSubview(newViewController.view, toView:self.containerView!)
         newViewController.view.layoutIfNeeded()
         
-        UIView.animateWithDuration(0.5, animations: {
+        UIView.animate(withDuration: 0.5, animations: {
             // only need to call layoutIfNeeded here
             newViewController.view.layoutIfNeeded()
             },
             completion: { finished in
                 oldViewController.view.removeFromSuperview()
                 oldViewController.removeFromParentViewController()
-                newViewController.didMoveToParentViewController(self)
+                newViewController.didMove(toParentViewController: self)
         })
     }
     
     // Adds the subviews for the swipe list
-    func addSubview(subView:UIView, toView parentView:UIView) {
+    func addSubview(_ subView:UIView, toView parentView:UIView) {
         parentView.addSubview(subView)
         
         var viewBindingsDict = [String: AnyObject]()
         viewBindingsDict["subView"] = subView
-        parentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[subView]|",
+        parentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[subView]|",
             options: [], metrics: nil, views: viewBindingsDict))
-        parentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[subView]|",
+        parentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[subView]|",
             options: [], metrics: nil, views: viewBindingsDict))
     }
     
     override func viewDidLoad() {
-        self.currentViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ItemViewController")
+        self.currentViewController = self.storyboard?.instantiateViewController(withIdentifier: "ItemViewController")
         self.currentViewController!.view.translatesAutoresizingMaskIntoConstraints = false
         self.addChildViewController(self.currentViewController!)
         self.addSubview(self.currentViewController!.view, toView: self.containerView)
